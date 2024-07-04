@@ -81,6 +81,8 @@ export default function Pricing({ user, products, subscription }: Props) {
     setPriceIdLoading(undefined);
   };
 
+  console.log(products);
+
   if (!products.length) {
     return (
       <section className="bg-black">
