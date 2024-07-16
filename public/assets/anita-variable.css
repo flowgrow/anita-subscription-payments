@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Anita";
+  font-family: 'Anita Sans Variable';
   font-style: normal;
   font-weight: 30 150;
-  src: url(./Anita.woff2);
+  src: url(./AnitaSansVF.woff2) format('woff2');
 }
