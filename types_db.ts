@@ -36,11 +36,9 @@ export type Database = {
         Row: {
           active: boolean | null
           currency: string | null
-          description: string | null
           id: string
           interval: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count: number | null
-          metadata: Json | null
           product_id: string | null
           trial_period_days: number | null
           type: Database["public"]["Enums"]["pricing_type"] | null
@@ -49,11 +47,9 @@ export type Database = {
         Insert: {
           active?: boolean | null
           currency?: string | null
-          description?: string | null
           id: string
           interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count?: number | null
-          metadata?: Json | null
           product_id?: string | null
           trial_period_days?: number | null
           type?: Database["public"]["Enums"]["pricing_type"] | null
@@ -62,11 +58,9 @@ export type Database = {
         Update: {
           active?: boolean | null
           currency?: string | null
-          description?: string | null
           id?: string
           interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count?: number | null
-          metadata?: Json | null
           product_id?: string | null
           trial_period_days?: number | null
           type?: Database["public"]["Enums"]["pricing_type"] | null
