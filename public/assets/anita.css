@@ -2,52 +2,40 @@
   font-family: 'Anita Sans Thin';
   font-style: normal;
   font-weight: 100;
-  src:
-    url(./AnitaSans-Thin.woff) format('woff'),
-    url(./AnitaSans-Thin.woff2) format('woff2');
+  src: url(./AnitaSans-Thin.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Light';
   font-style: normal;
   font-weight: 300;
-  src:
-    url(./AnitaSans-Light.woff) format('woff'),
-    url(./AnitaSans-Light.woff2) format('woff2');
+  src: url(./AnitaSans-Light.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Regular';
   font-style: normal;
   font-weight: 400;
-  src:
-    url(./AnitaSans-Regular.woff) format('woff'),
-    url(./AnitaSans-Regular.woff2) format('woff2');
+  src: url(./AnitaSans-Regular.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Medium';
   font-style: normal;
   font-weight: 500;
-  src:
-    url(./AnitaSans-Medium.woff) format('woff'),
-    url(./AnitaSans-Medium.woff2) format('woff2');
+  src: url(./AnitaSans-Medium.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Semibold';
   font-style: normal;
   font-weight: 600;
-  src:
-    url(./AnitaSans-Semibold.woff) format('woff'),
-    url(./AnitaSans-Semibold.woff2) format('woff2');
+  src: url(./AnitaSans-Semibold.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Bold';
   font-style: normal;
   font-weight: 700;
-  src:
-    url(./AnitaSans-Bold.woff) format('woff'),
-    url(./AnitaSans-Bold.woff2) format('woff2');
+  src: url(./AnitaSans-Bold.woff2) format('woff2');
 }
