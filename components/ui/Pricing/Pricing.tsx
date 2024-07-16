@@ -81,8 +81,6 @@ export default function Pricing({ user, products, subscription }: Props) {
     setPriceIdLoading(undefined);
   };
 
-  console.log(products);
-
   if (!products.length) {
     return (
       <section className="bg-black">
@@ -151,7 +149,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                 (price) => price.interval === billingInterval
               );
               if (!price) return null;
-              const priceString = new Intl.NumberFormat('en-US', {
+              const priceString = new Intl.NumberFormat('de-AT', {
                 style: 'currency',
                 currency: price.currency!,
                 minimumFractionDigits: 0
