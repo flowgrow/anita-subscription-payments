@@ -2,40 +2,40 @@
   font-family: 'Anita Sans Thin';
   font-style: normal;
   font-weight: 100;
-  src: url(./AnitaSansThin.woff2) format('woff2');
+  src: url(./AnitaSans-Thin.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Light';
   font-style: normal;
   font-weight: 300;
-  src: url(./AnitaSansLight.woff2) format('woff2');
+  src: url(./AnitaSans-Light.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Regular';
   font-style: normal;
   font-weight: 400;
-  src: url(./AnitaSansRegular.woff2) format('woff2');
+  src: url(./AnitaSans-Regular.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Medium';
   font-style: normal;
   font-weight: 500;
-  src: url(./AnitaSansMedium.woff2) format('woff2');
+  src: url(./AnitaSans-Medium.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Semibold';
   font-style: normal;
   font-weight: 600;
-  src: url(./AnitaSansSemibold.woff2) format('woff2');
+  src: url(./AnitaSans-Semibold.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'Anita Sans Bold';
   font-style: normal;
   font-weight: 700;
-  src: url(./AnitaSansBold.woff2) format('woff2');
+  src: url(./AnitaSans-Bold.woff2) format('woff2');
 }
