@@ -15,6 +15,12 @@ export const getURL = (path: string = '') => {
         : // If neither is set, default to localhost for local development.
           'http://app.anita.vision/';
 
+  console.log({
+    PUBLIC: process?.env?.NEXT_PUBLIC_SITE_URL,
+    VERCEL: process?.env?.NEXT_PUBLIC_VERCEL_URL,
+    url
+  });
+
   // Trim the URL and remove trailing slash if exists.
   url = url.replace(/\/+$/, '');
   // Make sure to include `https://` when not localhost.
