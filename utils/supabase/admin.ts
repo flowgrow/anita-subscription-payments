@@ -1,6 +1,7 @@
 import { toDateTime } from '@/utils/helpers';
 import { stripe } from '@/utils/stripe/config';
-import { createClient } from '@supabase/supabase-js';
+import { createClient as createAdminClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 import Stripe from 'stripe';
 import type { Database, Tables, TablesInsert } from 'types_db';
 
@@ -12,10 +13,51 @@ const TRIAL_PERIOD_DAYS = 0;
 
 // Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
 // as it has admin privileges and overwrites RLS policies!
-const supabaseAdmin = createClient<Database>(
+const supabaseAdmin = createAdminClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
+
+const loginViaTransferToken = async (transfer_token: string) => {
+  const { data: response, error } = await supabaseAdmin
+    .from('auth_transfer_tokens')
+    .delete()
+    .match({ token: transfer_token })
+    .select()
+    .single();
+
+  if (error) {
+    console.log({ error });
+    throw new Error(error.details);
+  }
+
+  if (!response) {
+    console.log({ response });
+    throw new Error('No transfer token found!');
+  }
+
+  const created_at = new Date(response.created_at);
+  const expires_at = new Date(created_at.getTime() + 5 * 60 * 1000);
+  const now = new Date();
+  if (now > expires_at) {
+    console.log({ created_at, expires_at, now });
+    throw new Error('Transfer Token expired.');
+  }
+
+  const supabaseAnon = createClient();
+
+  const { error: sessionError } = await supabaseAnon.auth.setSession({
+    access_token: response.session_data.access_token,
+    refresh_token: response.session_data.refresh_token
+  });
+
+  if (sessionError) {
+    console.log({ sessionError });
+    throw new Error('Could not create session!');
+  }
+
+  return true;
+};
 
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData: Product = {
@@ -88,7 +130,8 @@ const deletePriceRecord = async (price: Stripe.Price) => {
     .from('prices')
     .delete()
     .eq('id', price.id);
-  if (deletionError) throw new Error(`Price deletion failed: ${deletionError.message}`);
+  if (deletionError)
+    throw new Error(`Price deletion failed: ${deletionError.message}`);
   console.log(`Price deleted: ${price.id}`);
 };
 
@@ -98,7 +141,9 @@ const upsertCustomerToSupabase = async (uuid: string, customerId: string) => {
     .upsert([{ id: uuid, stripe_customer_id: customerId }]);
 
   if (upsertError)
-    throw new Error(`Supabase customer record creation failed: ${upsertError.message}`);
+    throw new Error(
+      `Supabase customer record creation failed: ${upsertError.message}`
+    );
 
   return customerId;
 };
@@ -205,7 +250,8 @@ const copyBillingDetailsToCustomer = async (
       payment_method: { ...payment_method[payment_method.type] }
     })
     .eq('id', uuid);
-  if (updateError) throw new Error(`Customer update failed: ${updateError.message}`);
+  if (updateError)
+    throw new Error(`Customer update failed: ${updateError.message}`);
 };
 
 const manageSubscriptionStatusChange = async (
@@ -267,7 +313,9 @@ const manageSubscriptionStatusChange = async (
     .from('subscriptions')
     .upsert([subscriptionData]);
   if (upsertError)
-    throw new Error(`Subscription insert/update failed: ${upsertError.message}`);
+    throw new Error(
+      `Subscription insert/update failed: ${upsertError.message}`
+    );
   console.log(
     `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
   );
@@ -283,6 +331,7 @@ const manageSubscriptionStatusChange = async (
 };
 
 export {
+  loginViaTransferToken,
   upsertProductRecord,
   upsertPriceRecord,
   deleteProductRecord,
