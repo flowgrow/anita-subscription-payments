@@ -5,6 +5,7 @@ import { updatePassword } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import PasswordChecklist from 'react-password-checklist';
 
 interface UpdatePasswordProps {
   redirectMethod: string;
@@ -15,6 +16,9 @@ export default function UpdatePassword({
 }: UpdatePasswordProps) {
   const router = redirectMethod === 'client' ? useRouter() : null;
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [password, setPassword] = useState('');
+  const [passwordAgain, setPasswordAgain] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true); // Disable the button while the request is being handled
@@ -35,6 +39,10 @@ export default function UpdatePassword({
             <input
               id="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               type="password"
               name="password"
               autoComplete="current-password"
@@ -44,10 +52,21 @@ export default function UpdatePassword({
             <input
               id="passwordConfirm"
               placeholder="Password"
+              value={passwordAgain}
+              onChange={(e) => {
+                setPasswordAgain(e.target.value);
+              }}
               type="password"
               name="passwordConfirm"
               autoComplete="current-password"
               className="w-full p-3 rounded-md bg-zinc-800"
+            />
+
+            <PasswordChecklist
+              rules={['minLength', 'specialChar', 'number', 'capital', 'match']}
+              minLength={5}
+              value={password}
+              valueAgain={passwordAgain}
             />
           </div>
           <Button

@@ -97,6 +97,7 @@ const getToastRedirect = (
     redirectPath += `&${arbitraryParams}`;
   }
 
+  console.log(redirectPath);
   return redirectPath;
 };
 

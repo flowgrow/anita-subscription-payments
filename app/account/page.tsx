@@ -8,6 +8,7 @@ import {
   getSubscription,
   getUser
 } from '@/utils/supabase/queries';
+import ChangePasswordForm from '@/components/ui/AccountForms/ChangePasswordForm';
 
 export default async function Account() {
   const supabase = createClient();
@@ -16,6 +17,12 @@ export default async function Account() {
     getUserDetails(supabase),
     getSubscription(supabase)
   ]);
+
+  console.log({
+    user,
+    userDetails,
+    subscription
+  });
 
   if (!user) {
     return redirect('/signin');
@@ -37,6 +44,7 @@ export default async function Account() {
         <CustomerPortalForm subscription={subscription} />
         <NameForm userName={user.user_metadata.full_name ?? ''} />
         <EmailForm userEmail={user.email} />
+        <ChangePasswordForm />
       </div>
     </section>
   );

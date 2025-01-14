@@ -307,16 +307,12 @@ export async function updateEmail(formData: FormData) {
 
 export async function updateName(formData: FormData) {
   // Get form data
-  const fullName = String(formData.get('fullName'));
-  const userId = String(formData.get('userId'));
+  const fullName = String(formData.get('fullName')).trim();
 
   const supabase = createClient();
-  const { error, data } = await supabase
-    .from('users')
-    .update({ full_name: fullName })
-    .eq('id', userId)
-    .select('full_name')
-    .single();
+  const { error, data } = await supabase.auth.updateUser({
+    data: { full_name: fullName }
+  });
 
   if (error) {
     return getErrorRedirect(
@@ -324,7 +320,7 @@ export async function updateName(formData: FormData) {
       'Your name could not be updated.',
       error.message
     );
-  } else if (data) {
+  } else if (data.user) {
     return getStatusRedirect(
       '/account',
       'Success!',
@@ -336,5 +332,5 @@ export async function updateName(formData: FormData) {
       'Hmm... Something went wrong.',
       'Your name could not be updated.'
     );
-  };
-};
+  }
+}
