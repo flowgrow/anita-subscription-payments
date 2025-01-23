@@ -43,7 +43,7 @@ const loginViaTransferToken = async (transfer_token: string) => {
     throw new Error('No transfer token found!');
   }
 
-  const created_at = new Date(response.created_at);
+  const created_at = new Date(response.created_at ?? '');
   const expires_at = new Date(created_at.getTime() + 1 * 60 * 1000); // one minute later
   const now = new Date();
   if (now > expires_at) {
@@ -52,9 +52,14 @@ const loginViaTransferToken = async (transfer_token: string) => {
 
   const supabaseAnon = createClient();
 
+  const sessionData =
+    typeof response.session_data === 'string'
+      ? JSON.parse(response.session_data)
+      : response.session_data;
+
   const { error: sessionError } = await supabaseAnon.auth.setSession({
-    access_token: response.session_data.access_token,
-    refresh_token: response.session_data.refresh_token
+    access_token: sessionData?.access_token ?? '',
+    refresh_token: sessionData?.refresh_token ?? ''
   });
 
   if (sessionError) {
