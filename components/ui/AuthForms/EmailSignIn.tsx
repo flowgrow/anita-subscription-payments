@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { signInWithEmail } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
@@ -46,15 +46,14 @@ export default function EmailSignIn({
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              className="w-full p-3 rounded-md"
             />
           </div>
           <Button
-            variant="slim"
+            variant="secondary"
             type="submit"
             className="mt-1"
-            loading={isSubmitting}
-            disabled={disableButton}
+            disabled={disableButton || isSubmitting}
           >
             Sign in
           </Button>

@@ -18,6 +18,13 @@ const supabaseAdmin = createAdminClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
+const deleteUser = async (user_id: string) => {
+  const { error } = await supabaseAdmin.auth.admin.deleteUser(user_id, false);
+
+  if (error) throw new Error(error.message);
+  return true;
+};
+
 const loginViaTransferToken = async (transfer_token: string) => {
   const { data: response, error } = await supabaseAdmin
     .from('auth_transfer_tokens')
@@ -37,10 +44,9 @@ const loginViaTransferToken = async (transfer_token: string) => {
   }
 
   const created_at = new Date(response.created_at);
-  const expires_at = new Date(created_at.getTime() + 5 * 60 * 1000);
+  const expires_at = new Date(created_at.getTime() + 1 * 60 * 1000); // one minute later
   const now = new Date();
   if (now > expires_at) {
-    console.log({ created_at, expires_at, now });
     throw new Error('Transfer Token expired.');
   }
 
@@ -331,6 +337,7 @@ const manageSubscriptionStatusChange = async (
 };
 
 export {
+  deleteUser,
   loginViaTransferToken,
   upsertProductRecord,
   upsertPriceRecord,

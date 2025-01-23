@@ -5,6 +5,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getURL, getErrorRedirect, getStatusRedirect } from 'utils/helpers';
 import { getAuthTypes } from 'utils/auth-helpers/settings';
+import { stripe } from '../stripe/config';
+import { deleteUser as deleteUserWithId } from '../supabase/admin';
 
 function isValidEmail(email: string) {
   var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -19,7 +21,7 @@ export async function SignOut(formData: FormData) {
   const pathName = String(formData.get('pathName')).trim();
 
   const supabase = createClient();
-  const { error } = await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut({ scope: 'local' });
 
   if (error) {
     return getErrorRedirect(
@@ -249,7 +251,7 @@ export async function updatePassword(formData: FormData) {
     );
   } else if (data.user) {
     redirectPath = getStatusRedirect(
-      '/',
+      '/account',
       'Success!',
       'Your password has been updated.'
     );
@@ -262,6 +264,72 @@ export async function updatePassword(formData: FormData) {
   }
 
   return redirectPath;
+}
+
+export async function cancelSubscription() {
+  const supabase = createClient();
+  const {
+    error,
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!user) {
+    throw new Error('There is no logged in user present.');
+  }
+
+  let {
+    count,
+    data: subscriptions,
+    error: subscriptionError
+  } = await supabase.from('subscriptions').select('*').eq('user_id', user.id);
+
+  if (count == 0 || subscriptionError) {
+    throw new Error('Could not find subscriptions for user.');
+  }
+
+  subscriptions?.forEach(async (subscription) => {
+    if (subscription.status !== 'canceled') {
+      let cancelResult = await stripe.subscriptions.cancel(subscription.id);
+      if (cancelResult.status != 'canceled') {
+        throw new Error(
+          'Could not cancel subscription.' + JSON.stringify(cancelResult)
+        );
+      }
+    }
+  });
+}
+
+export async function deleteUser() {
+  const supabase = createClient();
+  const {
+    error,
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!user) {
+    throw new Error('There is no logged in user present.');
+  }
+
+  let up = await supabase
+    .from('to_delete')
+    .insert([{ id: user.id }])
+    .select();
+
+  let { error: signoutError } = await supabase.auth.signOut({ scope: 'local' });
+
+  if (signoutError) {
+    throw new Error('There was an error while logging out.');
+  }
+
+  return await deleteUserWithId(user.id);
 }
 
 export async function updateEmail(formData: FormData) {

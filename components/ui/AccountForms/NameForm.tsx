@@ -1,11 +1,19 @@
 'use client';
 
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { updateName } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Input } from '../input';
 
 export default function NameForm({ userName }: { userName: string }) {
   const router = useRouter();
@@ -24,35 +32,38 @@ export default function NameForm({ userName }: { userName: string }) {
   };
 
   return (
-    <Card
-      title="Your Name"
-      description="Please enter your full name, or a display name you are comfortable with."
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">64 characters maximum</p>
-          <Button
-            variant="slim"
-            type="submit"
-            form="nameForm"
-            loading={isSubmitting}
-          >
-            Update Name
-          </Button>
-        </div>
-      }
-    >
-      <div className="mt-8 mb-4 text-xl font-semibold">
+    <Card>
+      <CardHeader>
+        <CardTitle>Your Name</CardTitle>
+        <CardDescription>
+          Please enter your full name, or a display name you are comfortable
+          with.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
         <form id="nameForm" onSubmit={(e) => handleSubmit(e)}>
-          <input
+          <Input
             type="text"
             name="fullName"
-            className="w-1/2 p-3 rounded-md bg-zinc-800"
             defaultValue={userName}
             placeholder="Your name"
             maxLength={64}
           />
         </form>
-      </div>
+      </CardContent>
+      <CardFooter>
+        <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
+          <p className="pb-4 sm:pb-0">64 characters maximum</p>
+          <Button
+            variant="outline"
+            type="submit"
+            form="nameForm"
+            disabled={isSubmitting}
+          >
+            Update Name
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

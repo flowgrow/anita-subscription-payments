@@ -1,11 +1,13 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { signInWithPassword } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { Input } from '../input';
+import { Label } from '../label';
 
 // Define prop type with allowEmail boolean
 interface PasswordSignInProps {
@@ -33,34 +35,38 @@ export default function PasswordSignIn({
         className="mb-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              name="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              className="w-full p-3 rounded-md bg-zinc-800"
-            />
+        <div className="grid gap-5">
+          <div className="grid gap-3">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                placeholder="name@example.com"
+                type="email"
+                name="email"
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect="off"
+                className="w-full p-3 rounded-md"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                placeholder="Password"
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                className="w-full p-3 rounded-md"
+              />
+            </div>
           </div>
           <Button
-            variant="slim"
+            variant="secondary"
             type="submit"
             className="mt-1"
-            loading={isSubmitting}
+            disabled={isSubmitting}
           >
             Sign in
           </Button>

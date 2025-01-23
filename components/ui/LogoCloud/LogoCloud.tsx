@@ -10,44 +10,28 @@ export default function LogoCloud() {
             <img
               src="/nextjs.svg"
               alt="Next.js Logo"
-              className="h-6 sm:h-12 text-white"
+              className="h-6 sm:h-12 "
             />
           </a>
         </div>
         <div className="flex items-center justify-start h-12">
           <a href="https://vercel.com" aria-label="Vercel.com Link">
-            <img
-              src="/vercel.svg"
-              alt="Vercel.com Logo"
-              className="h-6 text-white"
-            />
+            <img src="/vercel.svg" alt="Vercel.com Logo" className="h-6 " />
           </a>
         </div>
         <div className="flex items-center justify-start h-12">
           <a href="https://stripe.com" aria-label="stripe.com Link">
-            <img
-              src="/stripe.svg"
-              alt="stripe.com Logo"
-              className="h-12 text-white"
-            />
+            <img src="/stripe.svg" alt="stripe.com Logo" className="h-12 " />
           </a>
         </div>
         <div className="flex items-center justify-start h-12">
           <a href="https://supabase.io" aria-label="supabase.io Link">
-            <img
-              src="/supabase.svg"
-              alt="supabase.io Logo"
-              className="h-10 text-white"
-            />
+            <img src="/supabase.svg" alt="supabase.io Logo" className="h-10 " />
           </a>
         </div>
         <div className="flex items-center justify-start h-12">
           <a href="https://github.com" aria-label="github.com Link">
-            <img
-              src="/github.svg"
-              alt="github.com Logo"
-              className="h-8 text-white"
-            />
+            <img src="/github.svg" alt="github.com Logo" className="h-8 " />
           </a>
         </div>
       </div>

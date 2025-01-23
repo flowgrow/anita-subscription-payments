@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { signInWithOAuth } from '@/utils/auth-helpers/client';
 import { type Provider } from '@supabase/supabase-js';
 import { Github } from 'lucide-react';
@@ -28,13 +28,15 @@ export default function OauthSignIn() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true); // Disable the button while the request is being handled
-    try{
+    try {
       await signInWithOAuth(e);
     } catch (error) {
-      return router.push(getErrorRedirect(
-        `/`,
-        "Sorry, we weren't able to log you in. Please try again."
-      ));
+      return router.push(
+        getErrorRedirect(
+          `/`,
+          "Sorry, we weren't able to log you in. Please try again."
+        )
+      );
     }
     setIsSubmitting(false);
   };
@@ -49,10 +51,10 @@ export default function OauthSignIn() {
         >
           <input type="hidden" name="provider" value={provider.name} />
           <Button
-            variant="slim"
+            variant="secondary"
             type="submit"
             className="w-full"
-            loading={isSubmitting}
+            disabled={isSubmitting}
           >
             <span className="mr-2">{provider.icon}</span>
             <span>{provider.displayName}</span>

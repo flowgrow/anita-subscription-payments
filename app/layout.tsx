@@ -48,8 +48,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <body className="bg-black loading">
+    <html lang="en" className="dark">
+      <body className="loading">
         <Header />
         <main
           id="skip"

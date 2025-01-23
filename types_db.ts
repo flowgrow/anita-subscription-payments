@@ -9,6 +9,70 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      a11y_settings: {
+        Row: {
+          created_at: string
+          id: string
+          settings: string | null
+          settings_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          settings?: string | null
+          settings_name: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          settings?: string | null
+          settings_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_a11y_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      auth_transfer_tokens: {
+        Row: {
+          created_at: string | null
+          session_data: Json
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          session_data: Json
+          token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          session_data?: Json
+          token?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auth_transfer_tokens_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       customers: {
         Row: {
           id: string
@@ -24,7 +88,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "customers_id_fkey"
+            foreignKeyName: "public_customers_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
@@ -103,6 +167,41 @@ export type Database = {
         }
         Relationships: []
       }
+      reader_settings: {
+        Row: {
+          created_at: string
+          id: string
+          settings: Json | null
+          settings_name: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          settings?: Json | null
+          settings_name?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          settings?: Json | null
+          settings_name?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_reader_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subscriptions: {
         Row: {
           cancel_at: string | null
@@ -157,16 +256,39 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "public_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "subscriptions_price_id_fkey"
             columns: ["price_id"]
             isOneToOne: false
             referencedRelation: "prices"
             referencedColumns: ["id"]
           },
+        ]
+      }
+      to_delete: {
+        Row: {
+          created_at: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
           {
-            foreignKeyName: "subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
+            foreignKeyName: "public_to_delete_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -196,7 +318,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
+            foreignKeyName: "public_users_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"

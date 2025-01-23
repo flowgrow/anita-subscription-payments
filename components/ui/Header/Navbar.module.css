@@ -3,15 +3,17 @@
 }
 
 .dropdownMenu {
-  @apply w-full text-xl bg-black border-t border-b border-white flex flex-col items-start lg:hidden;
+  @apply w-full text-xl bg-black border-t border-b border-white flex flex-col items-start w-full lg:hidden;
 }
 
-.dropdownMenu > a, .dropdownMenu > form {
+.dropdownMenu > a,
+.dropdownMenu > form {
   @apply w-full px-6 py-6 border-b border-zinc-400;
   border-radius: 0;
 }
 
-.dropdownMenu > a:last-child, .dropdownMenu > form:last-child {
+.dropdownMenu > a:last-child,
+.dropdownMenu > form:last-child {
   border-bottom: none;
 }
 
