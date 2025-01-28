@@ -44,6 +44,73 @@ export type Database = {
           },
         ]
       }
+      assessment_per_device: {
+        Row: {
+          created_at: string
+          id: string
+          min_contrast: number | null
+          px_per_mm: number | null
+          ua: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          min_contrast?: number | null
+          px_per_mm?: number | null
+          ua: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          min_contrast?: number | null
+          px_per_mm?: number | null
+          ua?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_assessment_per_device_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_per_user: {
+        Row: {
+          acuity: number | null
+          colorblind: number | null
+          created_at: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          acuity?: number | null
+          colorblind?: number | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          acuity?: number | null
+          colorblind?: number | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_assessment_per_user_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       auth_transfer_tokens: {
         Row: {
           created_at: string | null
@@ -331,7 +398,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_id_by_email: {
+        Args: {
+          user_email: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       pricing_plan_interval: "day" | "week" | "month" | "year"

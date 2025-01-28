@@ -103,7 +103,7 @@ export default function Pricing({ user, products, subscription }: Props) {
 
           {intervals.length > 1 && (
             <Tabs defaultValue="month" className="w-[400px] m-auto mt-8">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-flow-col auto-cols-fr">
                 {intervals.map((interval) => (
                   <TabsTrigger key={interval} value={interval || ''}>
                     {intervalTabNames[interval || '']}
