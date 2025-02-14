@@ -105,30 +105,30 @@ export async function GET(req: Request) {
       });
     }
 
-    // // Call ZeroBounce API
-    // const ZEROBOUNCE_API_KEY = process.env.ZEROBOUNCE_API_KEY;
-    // if (!ZEROBOUNCE_API_KEY) {
-    //   throw new Error('ZEROBOUNCE_API_KEY is not configured');
-    // }
+    // Call ZeroBounce API
+    const ZEROBOUNCE_API_KEY = process.env.ZEROBOUNCE_API_KEY;
+    if (!ZEROBOUNCE_API_KEY) {
+      throw new Error('ZEROBOUNCE_API_KEY is not configured');
+    }
 
-    // const response = await fetch(
-    //   `https://api.zerobounce.net/v2/validate?api_key=${ZEROBOUNCE_API_KEY}&email=${encodeURIComponent(email)}`,
-    //   { method: 'GET' }
-    // );
+    const response = await fetch(
+      `https://api.zerobounce.net/v2/validate?api_key=${ZEROBOUNCE_API_KEY}&email=${encodeURIComponent(email)}`,
+      { method: 'GET' }
+    );
 
-    // if (!response.ok) {
-    //   throw new Error('ZeroBounce API request failed');
-    // }
+    if (!response.ok) {
+      throw new Error('ZeroBounce API request failed');
+    }
 
-    // const data = await response.json();
-    const data = {
-      status: email.endsWith('@example.com') ? 'valid' : 'invalid',
-      address: email,
-      domain: 'example.com',
-      mx_found: true,
-      smtp_check: true,
-      did_you_mean: null
-    };
+    const data = await response.json();
+    // const data = {
+    //   status: email.endsWith('@example.com') ? 'valid' : 'invalid',
+    //   address: email,
+    //   domain: 'example.com',
+    //   mx_found: true,
+    //   smtp_check: true,
+    //   did_you_mean: null
+    // };
 
     // Cache the result
     await redis.set(cacheKey, JSON.stringify(data), { ex: CACHE_DURATION });
