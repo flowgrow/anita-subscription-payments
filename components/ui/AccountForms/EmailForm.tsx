@@ -22,6 +22,7 @@ export default function EmailForm({
 }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newMail, setNewMail] = useState(userEmail ?? '');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
@@ -38,9 +39,9 @@ export default function EmailForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Email</CardTitle>
+        <CardTitle>Deine Email-Adresse</CardTitle>
         <CardDescription>
-          Please enter the email address you want to use to login.
+          Bitte gib die Email-Adresse ein, mit der du dich anmelden möchtest.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -48,8 +49,9 @@ export default function EmailForm({
           <Input
             type="text"
             name="newEmail"
-            defaultValue={userEmail ?? ''}
-            placeholder="Your email"
+            value={newMail}
+            onChange={(e) => setNewMail(e.target.value)}
+            placeholder="Deine Email-Adresse"
             maxLength={64}
           />
         </form>
@@ -57,15 +59,15 @@ export default function EmailForm({
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
           <p className="pb-4 sm:pb-0">
-            We will email you to verify the change.
+            Wir senden dir eine Email, um die Änderung zu bestätigen.
           </p>
           <Button
             variant="outline"
             type="submit"
             form="emailForm"
-            disabled={isSubmitting}
+            disabled={newMail === userEmail || isSubmitting}
           >
-            Update Email
+            Email-Adresse aktualisieren
           </Button>
         </div>
       </CardFooter>

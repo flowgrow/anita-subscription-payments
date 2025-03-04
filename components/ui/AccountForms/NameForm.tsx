@@ -34,10 +34,10 @@ export default function NameForm({ userName }: { userName: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Name</CardTitle>
+        <CardTitle>Dein Name</CardTitle>
         <CardDescription>
-          Please enter your full name, or a display name you are comfortable
-          with.
+          Bitte gib deinen vollen Namen ein, oder einen Namen, mit dem du dich
+          wohlfühlst.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -46,21 +46,21 @@ export default function NameForm({ userName }: { userName: string }) {
             type="text"
             name="fullName"
             defaultValue={userName}
-            placeholder="Your name"
+            placeholder="Dein Name"
             maxLength={64}
           />
         </form>
       </CardContent>
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">64 characters maximum</p>
+          <p></p>
           <Button
             variant="outline"
             type="submit"
             form="nameForm"
             disabled={isSubmitting}
           >
-            Update Name
+            Namen aktualisieren
           </Button>
         </div>
       </CardFooter>

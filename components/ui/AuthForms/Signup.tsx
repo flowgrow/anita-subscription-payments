@@ -11,6 +11,9 @@ import { Label } from '../label';
 import { Input } from '../input';
 import PasswordChecklist from 'react-password-checklist';
 import { Check, X } from 'lucide-react';
+import Wink from '@/components/icons/Wink';
+import Rings from '@/components/icons/Rings';
+import Balancer from 'react-wrap-balancer';
 
 // Define prop type with allowEmail boolean
 interface SignUpProps {
@@ -31,87 +34,29 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
   };
 
   return (
-    <div className="my-8">
-      <form
-        noValidate={true}
-        className="mb-4"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <div className="grid gap-5">
-          <div className="grid gap-3">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                placeholder="name@example.com"
-                type="email"
-                name="email"
-                autoCapitalize="none"
-                autoComplete="email"
-                autoCorrect="off"
-                className="w-full p-3 rounded-md"
-              />
+    <>
+      <section className="flex flex-col items-center justify-center flex-1 self-stretch min-w-[480px] max-w-full">
+        <div className="px-8 flex flex-col items-center self-stretch h-[80vh] justify-center">
+          <div className="flex flex-col gap-8 items-stretch w-full max-w-[360px]">
+            <div className="flex flex-col items-center w-auto relative pointer-events-none">
+              <Wink className="w-16 h-16" />
+              <Rings className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                className="w-full p-3 rounded-md"
-              />
-              <PasswordChecklist
-                className="text-xs [&_span]:!pt-0"
-                rules={['minLength', 'specialChar', 'number', 'capital']}
-                minLength={10}
-                value={password}
-                validTextColor="var(--valid-text)"
-                invalidTextColor="var(--invalid-text)"
-                iconComponents={{
-                  ValidIcon: (
-                    <Check
-                      size={14}
-                      className="mr-1"
-                      color="var(--valid-icon)"
-                    />
-                  ),
-                  InvalidIcon: (
-                    <X size={14} className="mr-1" color="var(--invalid-icon)" />
-                  )
-                }}
-                onChange={(isValid) => setDisableSubmit(!isValid)}
-              />
-            </div>
+            <h2 className="text-text-primary-(900) text-d-sm leading-d-sm font-semibold self-stretch text-center">
+              Anita-Konto erstellen
+            </h2>
+
+            <p className="text-center text-md leading-md font-normal text-text-tertiary-(500)">
+              <Balancer>
+                Wir freuen uns, dass du dich für Anita entschieden hast.
+              </Balancer>
+            </p>
+            <p className="text-center text-md leading-md font-normal text-text-tertiary-(500)">
+              Bitte nutze unsere Browser-Extension um dein Konto zu erstellen.
+            </p>
           </div>
-          <Button
-            variant="secondary"
-            type="submit"
-            className="mt-1"
-            disabled={disableSubmit || isSubmitting}
-          >
-            Sign up
-          </Button>
         </div>
-      </form>
-      <p>Already have an account?</p>
-      <p>
-        <Link href="/signin/password_signin" className="font-light text-sm">
-          Sign in with email and password
-        </Link>
-      </p>
-      {allowEmail && (
-        <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
-            Sign in via magic link
-          </Link>
-        </p>
-      )}
-    </div>
+      </section>
+    </>
   );
 }

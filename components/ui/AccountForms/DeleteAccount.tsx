@@ -29,6 +29,7 @@ import { useToast } from '../Toasts/use-toast';
 import { ToastAction } from '../Toasts/toast';
 import { useCallback, useState } from 'react';
 import { Input } from '../input';
+import { cn } from '@/utils/cn';
 
 type Subscription = Tables<'subscriptions'>;
 type Price = Tables<'prices'>;
@@ -55,6 +56,7 @@ export default function DeleteAccount({ subscription }: Props) {
     async (
       e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
     ) => {
+      console.log('delete');
       e.preventDefault();
       try {
         if (subscription) {
@@ -93,46 +95,79 @@ export default function DeleteAccount({ subscription }: Props) {
         <CardTitle>Delete Account</CardTitle>
         <CardDescription>Danger Zone!</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2 text-balance">
+      <CardContent className="text-balance">
         By deleting your Account, we will cancel all your subscriptions and
         remove all data associated with you from our database.
       </CardContent>
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
           <p className="pb-4 sm:pb-0"></p>
-          <AlertDialog>
+          <AlertDialog
+            onOpenChange={(open) => {
+              if (!open) {
+                setDeleteInput('');
+              }
+            }}
+          >
             <AlertDialogTrigger asChild>
               <Button variant="destructive">Delete Account</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
+              <AlertDialogCancel asChild>
+                <Button
+                  className={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'absolute top-4 right-4 w-6 h-6 p-0 rounded-md border-none shadow-none text-inherit'
+                  )}
+                >
+                  <span className="sr-only">Cancel</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18 6L6 18M6 6L18 18"
+                      stroke="#98A2B3"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Button>
+              </AlertDialogCancel>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Bist Du dir absolut sicher?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  Diese Aktion kann nicht rückgängig gemacht werden. Dein Konto
+                  wird dauerhaft gelöscht und deine Daten werden von unseren
+                  Servern entfernt.
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
-              <form onSubmit={clickHandler} className="space-y-2">
-                <p className="text-muted-foreground text-sm">
-                  Type <span className="bg-muted p-1 rounded-md">DELETE</span>{' '}
-                  to confirm your intent.
-                </p>
+              <form onSubmit={clickHandler} className="">
                 <Input
                   value={deleteInput}
                   onChange={(e) => {
                     setDeleteInput(e.target.value);
                   }}
                 />
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <p className="text-muted-foreground text-sm mt-1.5">
+                  Gib <span className="bg-muted p-1 rounded-md">LÖSCHEN</span>{' '}
+                  ein, um deine Absicht zu bestätigen.
+                </p>
+                <AlertDialogFooter className="mt-8">
+                  <AlertDialogCancel>Abbrechen</AlertDialogCancel>
                   <AlertDialogAction asChild>
                     <Button
                       type="submit"
-                      disabled={deleteInput !== 'DELETE'}
+                      disabled={deleteInput !== 'LÖSCHEN'}
                       className={buttonVariants({ variant: 'destructive' })}
+                      onClick={clickHandler}
                     >
-                      Yes, delete account.
+                      Konto löschen
                     </Button>
                   </AlertDialogAction>
                 </AlertDialogFooter>

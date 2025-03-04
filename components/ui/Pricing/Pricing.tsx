@@ -10,7 +10,8 @@ import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import NoProducts from './NoProducts';
 import ProductPricingCard from './ProductPricingCard';
-
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
+import Balancer from 'react-wrap-balancer';
 type Subscription = Tables<'subscriptions'>;
 type Product = Tables<'products'>;
 type Price = Tables<'prices'>;
@@ -31,11 +32,11 @@ interface Props {
 }
 
 const intervalTabNames = {
-  day: 'Daily Billing',
-  week: 'Weekly Billing',
-  month: 'Monthly Billing',
-  year: 'Yearly Billing',
-  '': 'No Interval'
+  day: 'Täglich',
+  week: 'Wöchentlich',
+  month: 'Monatlich',
+  year: 'Jährlich',
+  '': 'Kein Intervall'
 };
 
 export default function Pricing({ user, products, subscription }: Props) {
@@ -45,10 +46,15 @@ export default function Pricing({ user, products, subscription }: Props) {
         product?.prices?.map((price) => price?.interval)
       )
     )
-  );
+  )
+    .filter(Boolean)
+    .toSorted();
+
   const router = useRouter();
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
   const currentPath = usePathname();
+
+  const [tab, setTab] = useState('month');
 
   const handleStripeCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
@@ -91,43 +97,86 @@ export default function Pricing({ user, products, subscription }: Props) {
 
   return (
     <section>
-      <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
-        <div className="sm:flex sm:flex-col sm:align-center">
-          <h1 className="text-4xl font-extrabold  sm:text-center sm:text-6xl">
-            Pricing Plans
+      <div className="px-8 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
+        <div className="flex flex-col align-center">
+          <h1 className="text-4xl font-extrabold  text-center sm:text-6xl">
+            Abos für ein
+            <br />
+            barrierefreies Internet.
           </h1>
-          <p className="max-w-2xl m-auto mt-5 text-xl text-muted-foreground sm:text-center sm:text-2xl">
-            Start building for free, then add a site plan to go live. Account
-            plans unlock additional features.
+          <p className="max-w-2xl m-auto mt-5 text-xl text-muted-foreground text-center sm:text-2xl">
+            <Balancer>Einfache und transparente Pakete für alle.</Balancer>
           </p>
-
-          {intervals.length > 1 && (
-            <Tabs defaultValue="month" className="w-[400px] m-auto mt-8">
-              <TabsList className="grid w-full grid-flow-col auto-cols-fr">
-                {intervals.map((interval) => (
-                  <TabsTrigger key={interval} value={interval || ''}>
-                    {intervalTabNames[interval || '']}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              {intervals.map((interval) => (
-                <TabsContent key={interval} value={interval || ''}>
-                  {products.map((product) => (
-                    <ProductPricingCard
-                      key={product.id}
-                      product={product}
-                      buttonText={subscription ? 'Manage' : 'Subscribe'}
-                      onClickHandler={handleStripeCheckout}
-                      billingInterval={interval || ''}
-                      disabled={priceIdLoading == product.id}
-                    />
-                  ))}
-                </TabsContent>
-              ))}
-            </Tabs>
-          )}
         </div>
+      </div>
+
+      <div className="w-full">
+        <AnimatePresence>
+          <LayoutGroup>
+            {intervals.length > 1 && (
+              <Tabs
+                value={tab}
+                onValueChange={setTab}
+                className="flex flex-col gap-24 mt-8"
+              >
+                <TabsList asChild>
+                  <motion.div
+                    layout
+                    className="grid m-auto grid-flow-col auto-cols-fr"
+                  >
+                    {intervals.map((interval) => (
+                      <TabsTrigger
+                        key={interval}
+                        value={interval || ''}
+                        className="relative"
+                      >
+                        <span className="relative z-10">
+                          {intervalTabNames[interval || '']}
+                        </span>
+                        {interval === tab && (
+                          <motion.span
+                            className="absolute inset-0 bg-background shadow-sm rounded-md z-0"
+                            layoutId="tab-indicator"
+                          />
+                        )}
+                      </TabsTrigger>
+                    ))}
+                  </motion.div>
+                </TabsList>
+
+                <div className="max-w-full m-auto overflow-x-auto no-scrollbar pb-20">
+                  {intervals.map((interval) => (
+                    <TabsContent
+                      className="flex justify-start gap-8 after:content-[''] after:w-8 after:h-full before:content-[''] before:w-8 before:h-full"
+                      key={interval}
+                      value={interval || ''}
+                    >
+                      {products.map((product) => (
+                        <ProductPricingCard
+                          layout={true}
+                          layoutId={`product-${product.id}`}
+                          animate={{ opacity: 1 }}
+                          initial={{ opacity: 0 }}
+                          exit={{ opacity: 0 }}
+                          key={product.id}
+                          product={product}
+                          buttonText={subscription ? 'Verwalten' : 'Abonnieren'}
+                          onClickHandler={handleStripeCheckout}
+                          billingInterval={interval || ''}
+                          badgeText={product.metadata?.badge ?? undefined}
+                          disabled={
+                            priceIdLoading == product.id ||
+                            product.metadata?.badge.includes('Soon')
+                          }
+                        />
+                      ))}
+                    </TabsContent>
+                  ))}
+                </div>
+              </Tabs>
+            )}
+          </LayoutGroup>
+        </AnimatePresence>
       </div>
     </section>
   );

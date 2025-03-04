@@ -23,6 +23,8 @@ const supabaseAdmin = createAdminClient<Database>(
 );
 
 export async function GET(req: Request) {
+  console.log('***********VALIDATE EMAIL***********');
+
   const out: { error: string | null; data: any | null } = {
     error: null,
     data: null
@@ -105,39 +107,40 @@ export async function GET(req: Request) {
       });
     }
 
-    // Call ZeroBounce API
-    const ZEROBOUNCE_API_KEY = process.env.ZEROBOUNCE_API_KEY;
-    if (!ZEROBOUNCE_API_KEY) {
-      throw new Error('ZEROBOUNCE_API_KEY is not configured');
+    let zerobounceResponse = {
+      status: 'valid',
+      address: email
+    };
+    if (process.env.NODE_ENV === 'production') {
+      // Call ZeroBounce API
+      const ZEROBOUNCE_API_KEY = process.env.ZEROBOUNCE_API_KEY;
+      if (ZEROBOUNCE_API_KEY) {
+        const response = await fetch(
+          `https://api.zerobounce.net/v2/validate?api_key=${ZEROBOUNCE_API_KEY}&email=${encodeURIComponent(email)}`,
+          { method: 'GET' }
+        );
+        if (response.ok) {
+          zerobounceResponse = await response.json();
+        } else {
+          // we dont want to fail just because the api is down
+          console.error('ZeroBounce API request failed');
+        }
+      } else {
+        // we dont want to fail just because the API key is not configured
+        console.error('ZEROBOUNCE_API_KEY is not configured');
+      }
     }
-
-    const response = await fetch(
-      `https://api.zerobounce.net/v2/validate?api_key=${ZEROBOUNCE_API_KEY}&email=${encodeURIComponent(email)}`,
-      { method: 'GET' }
-    );
-
-    if (!response.ok) {
-      throw new Error('ZeroBounce API request failed');
-    }
-
-    const data = await response.json();
-    // const data = {
-    //   status: email.endsWith('@example.com') ? 'valid' : 'invalid',
-    //   address: email,
-    //   domain: 'example.com',
-    //   mx_found: true,
-    //   smtp_check: true,
-    //   did_you_mean: null
-    // };
 
     // Cache the result
-    await redis.set(cacheKey, JSON.stringify(data), { ex: CACHE_DURATION });
+    await redis.set(cacheKey, JSON.stringify(zerobounceResponse), {
+      ex: CACHE_DURATION
+    });
     console.log('***********ZEROBOUNCE***********');
-    console.log({ cacheKey, data });
+    console.log({ cacheKey, data: zerobounceResponse });
     console.log('*****************************');
 
-    if (data.status !== 'invalid') {
-      out.data = data;
+    if (zerobounceResponse.status !== 'invalid') {
+      out.data = zerobounceResponse;
     } else {
       out.error = 'Email is invalid';
     }

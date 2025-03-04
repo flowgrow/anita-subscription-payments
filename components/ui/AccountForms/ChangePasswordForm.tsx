@@ -21,22 +21,14 @@ export default function ChangePasswordForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Password</CardTitle>
-        <CardDescription>Here you can change your password</CardDescription>
+        <CardTitle>Dein Passwort</CardTitle>
+        <CardDescription>Hier kannst du dein Passwort ändern</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <Input
-          type="password"
-          disabled
-          defaultValue="placeholder"
-          maxLength={64}
-        />
-      </CardContent>
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
           <p className="pb-4 sm:pb-0"></p>
           <Button variant={'outline'} onClick={handleChangePasswordClick}>
-            Change Password
+            Passwort ändern
           </Button>
         </div>
       </CardFooter>

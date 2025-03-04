@@ -44,6 +44,41 @@ export type Database = {
           },
         ]
       }
+      anita_button_state: {
+        Row: {
+          created_at: string
+          id: string
+          settings: string | null
+          settings_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          settings?: string | null
+          settings_name: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          settings?: string | null
+          settings_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_anita_button_state_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       assessment_per_device: {
         Row: {
           created_at: string
@@ -51,7 +86,7 @@ export type Database = {
           min_contrast: number | null
           px_per_mm: number | null
           ua: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string
@@ -59,7 +94,7 @@ export type Database = {
           min_contrast?: number | null
           px_per_mm?: number | null
           ua: string
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           created_at?: string
@@ -67,7 +102,7 @@ export type Database = {
           min_contrast?: number | null
           px_per_mm?: number | null
           ua?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -82,30 +117,66 @@ export type Database = {
       assessment_per_user: {
         Row: {
           acuity: number | null
+          astigmatism: boolean | null
+          cognitiveLoad: Database["public"]["Enums"]["frequency"] | null
           colorblind: number | null
           created_at: string
+          disoriented: Database["public"]["Enums"]["frequency"] | null
           id: string
+          leftRight: Database["public"]["Enums"]["frequency"] | null
+          longTexts: Database["public"]["Enums"]["read_long_texts"] | null
+          phoneDistraction: Database["public"]["Enums"]["frequency"] | null
+          readAgain: Database["public"]["Enums"]["frequency"] | null
+          readAloud: Database["public"]["Enums"]["difficulty"] | null
+          readingAid: boolean | null
+          readMedium: Database["public"]["Enums"]["read_medium"] | null
+          syllableSplitting: Database["public"]["Enums"]["difficulty"] | null
           user_id: string | null
+          wordMixup: Database["public"]["Enums"]["frequency"] | null
         }
         Insert: {
           acuity?: number | null
+          astigmatism?: boolean | null
+          cognitiveLoad?: Database["public"]["Enums"]["frequency"] | null
           colorblind?: number | null
           created_at?: string
+          disoriented?: Database["public"]["Enums"]["frequency"] | null
           id?: string
+          leftRight?: Database["public"]["Enums"]["frequency"] | null
+          longTexts?: Database["public"]["Enums"]["read_long_texts"] | null
+          phoneDistraction?: Database["public"]["Enums"]["frequency"] | null
+          readAgain?: Database["public"]["Enums"]["frequency"] | null
+          readAloud?: Database["public"]["Enums"]["difficulty"] | null
+          readingAid?: boolean | null
+          readMedium?: Database["public"]["Enums"]["read_medium"] | null
+          syllableSplitting?: Database["public"]["Enums"]["difficulty"] | null
           user_id?: string | null
+          wordMixup?: Database["public"]["Enums"]["frequency"] | null
         }
         Update: {
           acuity?: number | null
+          astigmatism?: boolean | null
+          cognitiveLoad?: Database["public"]["Enums"]["frequency"] | null
           colorblind?: number | null
           created_at?: string
+          disoriented?: Database["public"]["Enums"]["frequency"] | null
           id?: string
+          leftRight?: Database["public"]["Enums"]["frequency"] | null
+          longTexts?: Database["public"]["Enums"]["read_long_texts"] | null
+          phoneDistraction?: Database["public"]["Enums"]["frequency"] | null
+          readAgain?: Database["public"]["Enums"]["frequency"] | null
+          readAloud?: Database["public"]["Enums"]["difficulty"] | null
+          readingAid?: boolean | null
+          readMedium?: Database["public"]["Enums"]["read_medium"] | null
+          syllableSplitting?: Database["public"]["Enums"]["difficulty"] | null
           user_id?: string | null
+          wordMixup?: Database["public"]["Enums"]["frequency"] | null
         }
         Relationships: [
           {
             foreignKeyName: "public_assessment_per_user_user_id_fkey"
             columns: ["user_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -132,7 +203,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "auth_transfer_tokens_user_id_fkey"
+            foreignKeyName: "public_auth_transfer_tokens_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -162,6 +233,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      global_settings: {
+        Row: {
+          answerAdaptations: Json | null
+          defaultA11ySettings: Json | null
+          defaultReaderSettings: Json | null
+          id: number
+        }
+        Insert: {
+          answerAdaptations?: Json | null
+          defaultA11ySettings?: Json | null
+          defaultReaderSettings?: Json | null
+          id?: number
+        }
+        Update: {
+          answerAdaptations?: Json | null
+          defaultA11ySettings?: Json | null
+          defaultReaderSettings?: Json | null
+          id?: number
+        }
+        Relationships: []
       }
       prices: {
         Row: {
@@ -238,24 +330,24 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          settings: Json | null
-          settings_name: string | null
+          settings: string | null
+          settings_name: string
           updated_at: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          settings?: Json | null
-          settings_name?: string | null
+          settings?: string | null
+          settings_name: string
           updated_at?: string
-          user_id: string
+          user_id?: string
         }
         Update: {
           created_at?: string
           id?: string
-          settings?: Json | null
-          settings_name?: string | null
+          settings?: string | null
+          settings_name?: string
           updated_at?: string
           user_id?: string
         }
@@ -365,6 +457,7 @@ export type Database = {
         Row: {
           avatar_url: string | null
           billing_address: Json | null
+          birthday: string | null
           full_name: string | null
           id: string
           payment_method: Json | null
@@ -372,6 +465,7 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           billing_address?: Json | null
+          birthday?: string | null
           full_name?: string | null
           id: string
           payment_method?: Json | null
@@ -379,6 +473,7 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           billing_address?: Json | null
+          birthday?: string | null
           full_name?: string | null
           id?: string
           payment_method?: Json | null
@@ -406,8 +501,17 @@ export type Database = {
       }
     }
     Enums: {
+      difficulty:
+        | "very_difficult"
+        | "difficult"
+        | "neutral"
+        | "easy"
+        | "very_easy"
+      frequency: "very_often" | "often" | "sometimes" | "rarely" | "never"
       pricing_plan_interval: "day" | "week" | "month" | "year"
       pricing_type: "one_time" | "recurring"
+      read_long_texts: "yes" | "yes_but_difficult" | "no" | "no_too_difficult"
+      read_medium: "mostly_digital" | "mostly_print" | "both"
       subscription_status:
         | "trialing"
         | "active"
