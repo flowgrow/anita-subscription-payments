@@ -10,6 +10,7 @@ import {
 import { Button } from '../button';
 import { cn } from '@/utils/cn';
 import { CheckCircle, CheckCircle2, CheckIcon } from 'lucide-react';
+import { HTMLMotionProps } from 'motion/react';
 type Product = Tables<'products'>;
 type Price = Tables<'prices'>;
 interface ProductWithPrices extends Product {
@@ -35,13 +36,13 @@ export default function ProductPricingCard({
   ...rest
 }: {
   product: ProductWithPrices;
-  billingInterval: string;
+  billingInterval: keyof typeof intervalLabel;
   disabled: boolean;
   buttonText: string;
   className?: string;
   badgeText?: string;
   onClickHandler: (price: Price) => void;
-}) {
+} & HTMLMotionProps<'div'>) {
   const price = product?.prices?.find(
     (price) => price.interval === billingInterval
   );

@@ -13,7 +13,11 @@ import ProductPricingCard from './ProductPricingCard';
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import Balancer from 'react-wrap-balancer';
 type Subscription = Tables<'subscriptions'>;
-type Product = Tables<'products'>;
+type Product = Tables<'products'> & {
+  metadata: {
+    badge?: string;
+  };
+};
 type Price = Tables<'prices'>;
 interface ProductWithPrices extends Product {
   prices: Price[];
@@ -165,8 +169,9 @@ export default function Pricing({ user, products, subscription }: Props) {
                           billingInterval={interval || ''}
                           badgeText={product.metadata?.badge ?? undefined}
                           disabled={
-                            priceIdLoading == product.id ||
-                            product.metadata?.badge.includes('Soon')
+                            (priceIdLoading == product.id ||
+                              product.metadata?.badge?.includes('Soon')) ??
+                            false
                           }
                         />
                       ))}
