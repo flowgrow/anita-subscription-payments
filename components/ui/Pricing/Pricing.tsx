@@ -83,8 +83,8 @@ export default function Pricing({ user, products, subscription }: Props) {
       return router.push(
         getErrorRedirect(
           currentPath,
-          'An unknown error occurred.',
-          'Please try again later or contact a system administrator.'
+          'Ein unbekannter Fehler ist aufgetreten.',
+          'Bitte versuche es später erneut oder kontaktiere einen Systemadministrator.'
         )
       );
     }

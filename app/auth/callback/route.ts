@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         getErrorRedirect(
           getURL(`/signin`),
           error.name,
-          "Sorry, we weren't able to log you in. Please try again."
+          'Login fehlgeschlagen. Bitte versuche es erneut.'
         )
       );
     }
@@ -27,6 +27,10 @@ export async function GET(request: NextRequest) {
 
   // URL to redirect to after sign in process completes
   return NextResponse.redirect(
-    getStatusRedirect(getURL(`/account`), 'Success!', 'You are now signed in.')
+    getStatusRedirect(
+      getURL(`/account`),
+      'Herzlich Willkommen!',
+      'Du bist jetzt erfolgreich angemeldet.'
+    )
   );
 }

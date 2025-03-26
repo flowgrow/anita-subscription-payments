@@ -104,15 +104,15 @@ export async function checkoutWithStripe(
         errorRedirect: getErrorRedirect(
           redirectPath,
           error.message,
-          'Please try again later or contact a system administrator.'
+          'Bitte versuche es erneut oder kontaktiere einen Systemadministrator.'
         )
       };
     } else {
       return {
         errorRedirect: getErrorRedirect(
           redirectPath,
-          'An unknown error occurred.',
-          'Please try again later or contact a system administrator.'
+          'Ein unbekannter Fehler ist aufgetreten.',
+          'Bitte versuche es erneut oder kontaktiere einen Systemadministrator.'
         )
       };
     }
@@ -168,13 +168,13 @@ export async function createStripePortal(currentPath: string) {
       return getErrorRedirect(
         currentPath,
         error.message,
-        'Please try again later or contact a system administrator.'
+        'Bitte versuche es erneut oder kontaktiere einen Systemadministrator.'
       );
     } else {
       return getErrorRedirect(
         currentPath,
-        'An unknown error occurred.',
-        'Please try again later or contact a system administrator.'
+        'Ein unbekannter Fehler ist aufgetreten.',
+        'Bitte versuche es erneut oder kontaktiere einen Systemadministrator.'
       );
     }
   }

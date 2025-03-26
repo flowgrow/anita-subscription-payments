@@ -458,24 +458,30 @@ export type Database = {
           avatar_url: string | null
           billing_address: Json | null
           birthday: string | null
-          full_name: string | null
+          email: string | null
+          first_name: string | null
           id: string
+          last_name: string | null
           payment_method: Json | null
         }
         Insert: {
           avatar_url?: string | null
           billing_address?: Json | null
           birthday?: string | null
-          full_name?: string | null
+          email?: string | null
+          first_name?: string | null
           id: string
+          last_name?: string | null
           payment_method?: Json | null
         }
         Update: {
           avatar_url?: string | null
           billing_address?: Json | null
           birthday?: string | null
-          full_name?: string | null
+          email?: string | null
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           payment_method?: Json | null
         }
         Relationships: [
@@ -490,15 +496,41 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      user_assessments: {
+        Row: {
+          acuity: number | null
+          astigmatism: boolean | null
+          birthday: string | null
+          cognitiveLoad: Database["public"]["Enums"]["frequency"] | null
+          colorblind: number | null
+          disoriented: Database["public"]["Enums"]["frequency"] | null
+          id: string | null
+          leftRight: Database["public"]["Enums"]["frequency"] | null
+          longTexts: Database["public"]["Enums"]["read_long_texts"] | null
+          min_contrast: number | null
+          phoneDistraction: Database["public"]["Enums"]["frequency"] | null
+          px_per_mm: number | null
+          readAgain: Database["public"]["Enums"]["frequency"] | null
+          readAloud: Database["public"]["Enums"]["difficulty"] | null
+          readingAid: boolean | null
+          readMedium: Database["public"]["Enums"]["read_medium"] | null
+          syllableSplitting: Database["public"]["Enums"]["difficulty"] | null
+          ua: string | null
+          wordMixup: Database["public"]["Enums"]["frequency"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
-      get_user_id_by_email: {
-        Args: {
-          user_email: string
-        }
-        Returns: string
-      }
+      [_ in never]: never
     }
     Enums: {
       difficulty:

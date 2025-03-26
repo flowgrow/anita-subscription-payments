@@ -35,7 +35,7 @@ export async function GET(req: Request) {
     const email = url.searchParams.get('email');
 
     if (!email) {
-      out.error = 'Email parameter is required';
+      out.error = 'E-Mail Adresse muss angegeben werden';
       return new Response(JSON.stringify(out), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -43,25 +43,28 @@ export async function GET(req: Request) {
     }
 
     // Check supabase first
-    const { data: emailData, error } = await supabaseAdmin.rpc(
-      'get_user_id_by_email',
-      { user_email: email }
-    );
+    const { data: emailData, error } = await supabaseAdmin
+      .from('users') // or whatever your users table is called
+      .select('email')
+      .eq('email', email)
+      .single();
 
     console.log('***********IS USER IN SUPABASE?***********');
     console.log({ email, emailData, error });
     console.log('******************************************');
 
-    if (error) {
-      out.error = 'Email is invalid';
+    if (emailData != null) {
+      out.error = 'E-Mail Adresse ist bereits vergeben';
       return new Response(JSON.stringify(out), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    if (emailData != null) {
-      out.error = 'Email is already in use';
+    if (error && error.code !== 'PGRST116') {
+      // PGRST116 is the error code for zero rows returned
+      // So if it is not this error, we want to return the error
+      out.error = error.message;
       return new Response(JSON.stringify(out), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -142,7 +145,7 @@ export async function GET(req: Request) {
     if (zerobounceResponse.status !== 'invalid') {
       out.data = zerobounceResponse;
     } else {
-      out.error = 'Email is invalid';
+      out.error = 'E-Mail Adresse ungültig';
     }
 
     return new Response(JSON.stringify(out), {
@@ -155,8 +158,8 @@ export async function GET(req: Request) {
       }
     });
   } catch (error) {
-    console.error('Email validation error:', error);
-    out.error = 'Internal server error';
+    console.error('E-Mail validation error:', error);
+    out.error = 'Interner Serverfehler';
     return new Response(JSON.stringify(out), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }

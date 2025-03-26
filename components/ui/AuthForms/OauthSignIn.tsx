@@ -32,10 +32,7 @@ export default function OauthSignIn() {
       await signInWithOAuth(e);
     } catch (error) {
       return router.push(
-        getErrorRedirect(
-          `/`,
-          "Sorry, we weren't able to log you in. Please try again."
-        )
+        getErrorRedirect(`/`, 'Login fehlgeschlagen. Bitte versuche es erneut.')
       );
     }
     setIsSubmitting(false);

@@ -39,9 +39,9 @@ export default function EmailForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Deine Email-Adresse</CardTitle>
+        <CardTitle>Deine E-mail Adresse</CardTitle>
         <CardDescription>
-          Bitte gib die Email-Adresse ein, mit der du dich anmelden möchtest.
+          Bitte gib die E-mail Adresse ein, mit der du dich anmelden möchtest.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -51,7 +51,7 @@ export default function EmailForm({
             name="newEmail"
             value={newMail}
             onChange={(e) => setNewMail(e.target.value)}
-            placeholder="Deine Email-Adresse"
+            placeholder="Deine E-mail Adresse"
             maxLength={64}
           />
         </form>
@@ -59,7 +59,7 @@ export default function EmailForm({
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
           <p className="pb-4 sm:pb-0">
-            Wir senden dir eine Email, um die Änderung zu bestätigen.
+            Wir senden dir eine E-mail, um die Änderung zu bestätigen.
           </p>
           <Button
             variant="outline"
@@ -67,7 +67,7 @@ export default function EmailForm({
             form="emailForm"
             disabled={newMail === userEmail || isSubmitting}
           >
-            Email-Adresse aktualisieren
+            E-mail Adresse aktualisieren
           </Button>
         </div>
       </CardFooter>

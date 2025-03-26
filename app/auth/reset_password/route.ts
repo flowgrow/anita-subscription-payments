@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         getErrorRedirect(
           getURL('/signin/forgot_password'),
           error.name,
-          "Sorry, we weren't able to log you in. Please try again."
+          'Login fehlgeschlagen. Bitte versuche es erneut.'
         )
       );
     }
@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
   return NextResponse.redirect(
     getStatusRedirect(
       getURL('/signin/update_password'),
-      'You are now signed in.',
-      'Please enter a new password for your account.'
+      'Du bist jetzt angemeldet.',
+      'Bitte erstelle ein neues Passwort für dein Konto.'
     )
   );
 }

@@ -37,7 +37,7 @@ export default function EmailSignIn({
       >
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">E-mail Adresse</label>
             <input
               id="email"
               placeholder="name@example.com"

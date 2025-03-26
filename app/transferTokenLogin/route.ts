@@ -11,8 +11,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       getErrorRedirect(
         getURL('/signin'),
-        'Missing Token',
-        'No transfer token was provided.'
+        'Fehlender Token',
+        'Es wurde kein Transfer-Token bereitgestellt.'
       )
     );
   }
@@ -23,8 +23,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       getStatusRedirect(
         getURL('/account'),
-        'Success!',
-        'You are now signed in.'
+        'Herzlich Willkommen!',
+        'Du bist jetzt erfolgreich angemeldet.'
       )
     );
   } catch (e) {
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.redirect(
-      getErrorRedirect(getURL('/signin'), 'Transer Token Error', msg)
+      getErrorRedirect(getURL('/signin'), 'Transfer-Token Fehler', msg)
     );
   }
 }

@@ -26,8 +26,8 @@ export function Toaster() {
     if (error || status) {
       toast({
         title: error
-          ? error ?? 'Hmm... Something went wrong.'
-          : status ?? 'Alright!',
+          ? error ?? 'Hmm... Da ist was schief gelaufen.'
+          : status ?? 'Alles klar!',
         description: error ? error_description : status_description,
         variant: error ? 'destructive' : undefined
       });

@@ -55,7 +55,7 @@ export default function PasswordSignIn({
                 htmlFor="email"
                 className="text-sm leading-sm text-text-secondary-(700)"
               >
-                Email
+                E-mail Adresse
               </Label>
               <Input
                 id="email"

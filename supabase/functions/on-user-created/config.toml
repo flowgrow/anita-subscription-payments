@@ -1,0 +1,5 @@
+[functions.on-user-created]
+verify_jwt = true
+
+[functions.on-user-created.event.auth.user.created]
+enabled = true 

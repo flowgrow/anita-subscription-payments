@@ -105,7 +105,7 @@ export default function ProductPricingCard({
           </div>
         </div>
       </CardHeader>
-      <CardContent className="border-solid border-t border-b px-4xl pt-4xl pb-5xl flex flex-col gap-3xl items-start justify-start self-stretch shrink-0 relative">
+      <CardContent className="border-solid border-t px-4xl pt-4xl pb-5xl flex flex-col gap-3xl items-start justify-start self-stretch shrink-0 relative">
         <ul className="flex flex-col gap-lg">
           {Object.entries(product.metadata || {})
             .filter(([key]) => key.includes('feature'))
@@ -129,7 +129,7 @@ export default function ProductPricingCard({
             ))}
         </ul>
       </CardContent>
-      <CardFooter className="w-full p-8 bg-bg-disabled">
+      <CardFooter className="w-full p-8 border-t mt-auto bg-bg-disabled">
         <Button
           className="w-full"
           type="button"

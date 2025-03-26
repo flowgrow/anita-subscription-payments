@@ -49,7 +49,7 @@ export default function ForgotPassword({
             </h2>
 
             <p className="text-center text-md leading-md font-normal text-text-tertiary-(500)">
-              Gib deine Email-Adresse ein und wir senden dir einen Link um dein
+              Gib deine E-Mail-Adresse ein und ich sende dir einen Link um dein
               Passwort zurückzusetzen.
             </p>
 
@@ -64,7 +64,7 @@ export default function ForgotPassword({
                     htmlFor="email"
                     className="text-sm leading-sm text-text-secondary-(700)"
                   >
-                    Email
+                    E-mail Adresse
                   </Label>
                   <Input
                     id="email"
@@ -83,7 +83,7 @@ export default function ForgotPassword({
                   type="submit"
                   variant="default"
                   className="w-full mt-4"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || email === ''}
                 >
                   Link anfordern
                 </Button>
@@ -96,7 +96,7 @@ export default function ForgotPassword({
               href={`/signin/password_signin?email=${email}`}
               className="text-text-brand-tertiary-(600) no-underline font-medium"
             >
-              Mit Email und Passwort anmelden
+              Passwort wieder eingefallen?
             </Link>
           </p>
         </div>

@@ -100,23 +100,23 @@ export default function UpdatePassword({
                     className="text-xs [&_span]:!pt-0"
                     rules={[
                       'minLength',
-                      'specialChar',
                       'number',
+                      'lowercase',
                       'capital',
                       'match'
                     ]}
-                    minLength={10}
+                    minLength={8}
                     value={password}
                     valueAgain={passwordAgain}
+                    messages={{
+                      minLength: 'Mindestens 8 Zeichen',
+                      number: 'Mindestens eine Ziffer',
+                      lowercase: 'Mindestens ein Kleinbuchstabe',
+                      capital: 'Mindestens ein Großbuchstabe',
+                      match: 'Passwörter Stimmenüberein'
+                    }}
                     validTextColor="var(--valid-text)"
                     invalidTextColor="var(--invalid-text)"
-                    messages={{
-                      minLength: 'Mindestens 10 Zeichen lang',
-                      specialChar: 'Mindestens einen Sonderzeichen',
-                      number: 'Mindestens eine Zahl',
-                      capital: 'Mindestens einen Großbuchstaben',
-                      match: 'Passwörter stimmen nicht überein'
-                    }}
                     iconComponents={{
                       ValidIcon: (
                         <Check
