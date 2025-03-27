@@ -1,0 +1,367 @@
+{
+  "age": {
+    "fontSize": {
+      "<=14": 1,
+      "41-55": 1.2,
+      ">=56": 1.4
+    },
+    "lineHeight": {
+      "<=14": 0.20,
+      "41-55": 0.05,
+      ">=56": 0.10
+    },
+    "charsPerLine": {
+      "<=14": -10,
+      ">=56": -5
+    },
+    "paragraphSpacing": {
+      "<=14": 0.10,
+      ">=56": 0.05
+    },
+    "letterSpacing": {
+      "<=14": 0.0025,
+      "41-55": 0.0025,
+      ">=56": 0.005
+    },
+    "ss01": {
+      "<=14": true
+    },
+    "ss05": {
+      "<=14": true
+    },
+    "readingLayout": {
+      "<=14": "singlePage",
+      "15-21": "endless",
+      "22-40": "endless",
+      "41-55": "endless",
+      ">=56": "singlePage"
+    },
+    "fontWeight": {
+      "<=14": 20,
+      "15-21": 0,
+      "22-40": 0,
+      "41-55": 20,
+      ">=56": 20
+    }
+  },
+  "readMedium": {
+    "fontSize": {
+      "both": 0,
+      "mostly_digital": 0.25,
+      "mostly_print": -0.25
+    },
+    "lineHeight": {
+      "both": 0,
+      "mostly_digital": 0.05,
+      "mostly_print": -0.05
+    },
+    "charsPerLine": {
+      "both": 0,
+      "mostly_digital": 5,
+      "mostly_print": -5
+    },
+    "paragraphSpacing": {
+      "both": 0.10,
+      "mostly_digital": 0,
+      "mostly_print": -0.05
+    },
+    "fontWeight": {
+      "both": -20,
+      "mostly_digital": 0,
+      "mostly_print": -30
+    },
+    "readingLayout": {
+      "both": "singlePage",
+      "mostly_digital": "endless",
+      "mostly_print": "doublePage"
+    }
+  },
+  "longTexts": {
+    "fontSize": {
+      "yes": 0,
+      "yes_but_difficult": 0.25,
+      "no": 0.25,
+      "no_too_difficult": 0.5
+    },
+    "lineHeight": {
+      "yes": 0,
+      "yes_but_difficult": 0.05,
+      "no": 0.025,
+      "no_too_difficult": 0.10
+    },
+    "charsPerLine": {
+      "yes": 0,
+      "yes_but_difficult": -5,
+      "no": -2.5,
+      "no_too_difficult": 10
+    },
+    "paragraphSpacing": {
+      "yes": 0,
+      "yes_but_difficult": 0.05,
+      "no": 0.025,
+      "no_too_difficult": 0.075
+    },
+    "letterSpacing": {
+      "yes": 0,
+      "yes_but_difficult": 0.005,
+      "no": 0.005,
+      "no_too_difficult": 0.0075
+    },
+    "wordSpacing": {
+      "yes": 0,
+      "yes_but_difficult": 0.005,
+      "no": 0,
+      "no_too_difficult": 0.005
+    },
+    "fontWeight": {
+      "yes": 0,
+      "yes_but_difficult": 20,
+      "no": 10,
+      "no_too_difficult": 20
+    },
+    "readingLayout": {
+      "yes": "endless",
+      "yes_but_difficult": "singlePage",
+      "no": "singlePage",
+      "no_too_difficult": "singlePage"
+    }
+  },
+  "disoriented": {
+    "lineHeight": {
+      "very_often": 0.15,
+      "often": 0.10,
+      "sometimes": 0.05,
+      "rarely": 0.025,
+      "never": 0
+    },
+    "charsPerLine": {
+      "very_often": -10,
+      "often": -5,
+      "sometimes": -3,
+      "rarely": 0,
+      "never": 0
+    },
+    "paragraphSpacing": {
+      "very_often": 0.10,
+      "often": 0.05,
+      "sometimes": 0.03,
+      "rarely": 0,
+      "never": 0
+    }
+  },
+  "wordMixup": {
+    "letterSpacing": {
+      "very_often": 0.005,
+      "often": 0.0025,
+      "sometimes": 0.001,
+      "rarely": 0.0005,
+      "never": 0
+    },
+    "wordSpacing": {
+      "very_often": 0.005,
+      "often": 0.004,
+      "sometimes": 0.003,
+      "rarely": 0.002,
+      "never": 0
+    }
+  },
+  "leftRight": {
+    "lineHeight": {
+      "very_often": 0.08,
+      "often": 0.06,
+      "sometimes": 0.04,
+      "rarely": 0.02,
+      "never": 0
+    },
+    "paragraphSpacing": {
+      "very_often": 0.08,
+      "often": 0.06,
+      "sometimes": 0.04,
+      "rarely": 0.02,
+      "never": 0
+    },
+    "wordSpacing": {
+      "very_often": 0.008,
+      "often": 0.006,
+      "sometimes": 0.004,
+      "rarely": 0.002,
+      "never": 0
+    }
+  },
+  "readAgain": {
+    "paragraphSpacing": {
+      "very_often": 0.10,
+      "often": 0.08,
+      "sometimes": 0.06,
+      "rarely": 0.04,
+      "never": 0
+    }
+  },
+  "cognitiveLoad": {
+    "fontSize": {
+      "very_often": 1.5,
+      "often": 1,
+      "sometimes": 0.5,
+      "rarely": 0.25,
+      "never": 0
+    },
+    "lineHeight": {
+      "very_often": 0.10,
+      "often": 0.05,
+      "sometimes": 0.025,
+      "rarely": 0,
+      "never": 0
+    },
+    "paragraphSpacing": {
+      "very_often": 0.05,
+      "often": 0.025,
+      "sometimes": 0,
+      "rarely": 0,
+      "never": 0
+    },
+    "wordSpacing": {
+      "very_often": 0.010,
+      "often": 0.008,
+      "sometimes": 0.006,
+      "rarely": 0.004,
+      "never": 0
+    },
+    "fontWeight": {
+      "very_often": 10,
+      "often": 10,
+      "sometimes": 5,
+      "rarely": 5,
+      "never": 0
+    }
+  },
+  "phoneDistraction": {
+    "fontSize": {
+      "very_often": 2,
+      "often": 1,
+      "sometimes": 0.5,
+      "rarely": 0.25,
+      "never": 0
+    },
+    "lineHeight": {
+      "very_often": 0.10,
+      "often": 0.05,
+      "sometimes": 0.025,
+      "rarely": 0.01,
+      "never": 0
+    },
+    "paragraphSpacing": {
+      "very_often": 0.075,
+      "often": 0.05,
+      "sometimes": 0.025,
+      "rarely": 0,
+      "never": 0
+    },
+    "letterSpacing": {
+      "very_often": 0.010,
+      "often": 0.0075,
+      "sometimes": 0.005,
+      "rarely": 0.0025,
+      "never": 0
+    },
+    "fontWeight": {
+      "very_often": 10,
+      "often": 10,
+      "sometimes": 5,
+      "rarely": 5,
+      "never": 0
+    }
+  },
+  "syllableSplitting": {
+    "fontSize": {
+      "very_easy": 0,
+      "easy": 0,
+      "neutral": 0.25,
+      "difficult": 0.5,
+      "very_difficult": 1
+    },
+    "letterSpacing": {
+      "very_easy": 0,
+      "easy": 0.002,
+      "neutral": 0.006,
+      "difficult": 0.008,
+      "very_difficult": 0.010
+    },
+    "wordSpacing": {
+      "very_easy": 0,
+      "easy": 0.002,
+      "neutral": 0.006,
+      "difficult": 0.008,
+      "very_difficult": 0.010
+    },
+    "fontWeight": {
+      "very_easy": 10,
+      "easy": 10,
+      "neutral": 5,
+      "difficult": 5,
+      "very_difficult": 0
+    }
+  },
+  "readAloud": {
+    "fontSize": {
+      "very_easy": 0,
+      "easy": 0.5,
+      "neutral": 1,
+      "difficult": 1.25,
+      "very_difficult": 1.5
+    },
+    "paragraphSpacing": {
+      "very_easy": 0,
+      "easy": 0.025,
+      "neutral": 0.05,
+      "difficult": 0.075,
+      "very_difficult": 0.10
+    },
+    "fontWeight": {
+      "very_easy": 10,
+      "easy": 10,
+      "neutral": 5,
+      "difficult": 5,
+      "very_difficult": 0
+    }
+  },
+  "readingAid": {
+    "fontSize": {
+      "true": 0.5,
+      "false": 0
+    },
+    "paragraphSpacing": {
+      "true": 0.05,
+      "false": 0
+    },
+    "wordSpacing": {
+      "true": 0.005,
+      "false": 0
+    },
+    "fontWeight": {
+      "true": 10,
+      "false": 0
+    }
+  },
+  "astigmatism": {
+    "fontSize": {
+      "true": 0.5,
+      "false": 0
+    },
+    "lineHeight": {
+      "true": -0.10,
+      "false": 0
+    },
+    "charsPerLine": {
+      "true": -15,
+      "false": 0
+    },
+    "paragraphSpacing": {
+      "true": 0.20,
+      "false": 0
+    },
+    "wordSpacing": {
+      "true": 0.010,
+      "false": 0
+    }
+  }
+}
