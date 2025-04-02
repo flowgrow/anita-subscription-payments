@@ -14,13 +14,14 @@ interface SignInOutLinkProps {
 
 export default function SignInOutLink({ user }: SignInOutLinkProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   return user ? (
     <form
       onSubmit={(e) => handleRequest(e, SignOut, router)}
       className="flex flex-row gap-1 items-center"
     >
-      <input type="hidden" name="pathName" value={usePathname()} />
+      <input type="hidden" name="pathName" value={pathname} />
       <Button type="submit" hierarchy="tertiary_color" size="sm" icon_only="no">
         <LogOutIcon />
         <span>Abmelden</span>

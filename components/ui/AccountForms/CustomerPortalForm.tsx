@@ -109,7 +109,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
         {subscription && (
           <CardFooter>
             <Button
-              hierarchy="secondary_gray"
+              hierarchy="secondary_color"
               disabled={isSubmitting}
               onClick={handleStripePortalRequest}
             >
