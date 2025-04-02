@@ -5,33 +5,205 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:pointer-events-none [&_svg]:size-5 [&_svg]:stroke-[1.67] [&_svg]:shrink-0 focus-visible:outline-none',
   {
     variants: {
-      variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+      hierarchy: {
+        primary:
+          'bg-button-primary-bg border-button-primary-border border border-solid text-button-primary-fg hover:bg-button-primary-bg_hover hover:text-button-primary-fg_hover hover:border-button-primary-border_hover shadow-xs focus-visible:shadow-ring-brand-shadow-xs disabled:bg-bg-disabled disabled:text-fg-disabled disabled:border-border-disabled',
+        secondary_gray:
+          'bg-button-secondary-bg border-button-secondary-border border border-solid text-button-secondary-fg hover:bg-button-secondary-bg_hover hover:text-button-secondary-fg_hover hover:border-button-secondary-border_hover shadow-xs focus-visible:shadow-ring-gray-shadow-xs disabled:bg-bg-primary disabled:text-fg-disabled disabled:border-border-disabled_subtle',
+        secondary_color:
+          'bg-button-secondary-color-bg border-button-secondary-color-border border border-solid text-button-secondary-color-fg hover:bg-button-secondary-color-bg_hover hover:text-button-secondary-color-fg_hover hover:border-button-secondary-color-border_hover shadow-xs focus-visible:shadow-ring-brand-shadow-xs disabled:bg-bg-primary disabled:text-fg-disabled disabled:border-border-disabled_subtle',
+        tertiary_gray:
+          'bg-transparent text-button-tertiary-fg hover:bg-button-tertiary-bg_hover hover:text-button-tertiary-fg_hover focus-visible:shadow-ring-gray disabled:text-fg-disabled',
+        tertiary_color:
+          'bg-transparent text-button-tertiary-color-fg hover:bg-button-tertiary-color-bg_hover hover:text-button-tertiary-color-fg_hover focus-visible:shadow-ring-brand disabled:text-fg-disabled',
+        link_gray:
+          'bg-transparent text-button-tertiary-fg hover:text-button-tertiary-fg_hover focus-visible:shadow-ring-gray disabled:text-fg-disabled',
+        link_color:
+          'bg-transparent text-button-tertiary-color-fg hover:text-button-tertiary-color-fg_hover focus-visible:shadow-ring-brand disabled:text-fg-disabled',
         destructive:
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 active:bg-destructive/50',
-        outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline'
+          'bg-button-primary-error-bg border-button-primary-error-border border border-solid text-fg-white hover:bg-button-primary-error-bg_hover hover:border-button-primary-error-border_hover shadow-xs focus-visible:shadow-ring-error-shadow-xs disabled:bg-bg-disabled disabled:text-fg-disabled disabled:border-border-disabled_subtle',
+        destructive_secondary:
+          'bg-button-tertiary-error-bg border-button-secondary-error-border border border-solid text-button-tertiary-error-fg hover:bg-button-tertiary-error-bg_hover hover:border-button-secondary-error-border_hover hover:text-button-tertiary-error-fg_hover shadow-xs focus-visible:shadow-ring-error-shadow-xs disabled:bg-bg-disabled disabled:text-fg-disabled disabled:border-border-disabled_subtle',
+        destructive_tertiary:
+          'bg-transparent text-button-tertiary-error-fg hover:bg-button-tertiary-error-bg_hover hover:text-button-tertiary-error-fg_hover focus-visible:shadow-ring-error disabled:text-fg-disabled',
+        destructive_link:
+          'bg-transparent text-button-tertiary-error-fg hover:text-button-tertiary-error-fg_hover focus-visible:shadow-ring-error disabled:text-fg-disabled'
+      },
+      icon_only: {
+        yes: '',
+        no: ''
       },
       size: {
-        sm: 'px-3 py-2 gap-1 text-sm leading-sm',
-        md: 'px-[14px] py-[10px] gap-1 text-sm  leading-sm',
-        default: 'px-4 py-[10px] gap-[6px] text-md  leading-md',
-        xl: 'px-[18px] py-3 gap-[6px] text-md  leading-md',
-        '2xl': 'px-[22px] py-4 gap-[10px] text-lg  leading-lg',
-        icon: 'w-9'
+        sm: 'gap-1.5 text-sm leading-sm',
+        md: 'gap-1.5 text-sm leading-sm',
+        lg: 'gap-2 text-md leading-md',
+        xl: 'gap-2 text-md leading-md',
+        '2xl': 'gap-3 text-lg leading-lg [&_svg]:size-6 [&_svg]:stroke-2'
       }
     },
+    compoundVariants: [
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'sm',
+        icon_only: 'yes',
+        className: 'w-9 p-2'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'md',
+        icon_only: 'yes',
+        className: 'w-10 p-2.5'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'lg',
+        icon_only: 'yes',
+        className: 'w-11 p-3'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'xl',
+        icon_only: 'yes',
+        className: 'w-12 p-3.5'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: '2xl',
+        icon_only: 'yes',
+        className: 'w-14 p-4'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'sm',
+        icon_only: 'no',
+        className: 'px-3 py-2'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'md',
+        icon_only: 'no',
+        className: 'px-3.5 py-2.5'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'lg',
+        icon_only: 'no',
+        className: 'px-4 py-2.5'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: 'xl',
+        icon_only: 'no',
+        className: 'px-[18px] py-3'
+      },
+      {
+        hierarchy: [
+          'primary',
+          'secondary_gray',
+          'secondary_color',
+          'tertiary_gray',
+          'tertiary_color',
+          'destructive',
+          'destructive_secondary',
+          'destructive_tertiary'
+        ],
+        size: '2xl',
+        icon_only: 'no',
+        className: 'px-[22px] py-4'
+      },
+      {
+        hierarchy: ['link_gray', 'link_color', 'destructive_link'],
+        className: 'p-0'
+      }
+    ],
     defaultVariants: {
-      variant: 'default',
-      size: 'default'
+      hierarchy: 'primary',
+      size: 'lg',
+      icon_only: 'no'
     }
   }
 );
@@ -43,11 +215,17 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    { className, hierarchy, size, icon_only, asChild = false, ...props },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button';
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ hierarchy, size, icon_only, className })
+        )}
         ref={ref}
         {...props}
       />

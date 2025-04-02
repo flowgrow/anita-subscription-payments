@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { Label } from '../label';
 import { Input } from '../input';
-import Wink from '@/components/icons/Wink';
+import Lock from '@/components/icons/Lock';
 import Rings from '@/components/icons/Rings';
 
 // Define prop type with allowEmail boolean
@@ -37,10 +37,10 @@ export default function ForgotPassword({
   return (
     <>
       <section className="flex flex-col items-center justify-center flex-1 self-stretch min-w-[480px] max-w-full">
-        <div className="px-8 flex flex-col items-center self-stretch h-[80vh] justify-center">
+        <div className="px-8 flex flex-col items-center self-stretch min-h-[80vh] justify-center">
           <div className="flex flex-col gap-8 items-stretch w-full max-w-[360px]">
             <div className="flex flex-col items-center w-auto relative pointer-events-none">
-              <Wink className="w-16 h-16" />
+              <Lock />
               <Rings className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             </div>
 
@@ -64,7 +64,7 @@ export default function ForgotPassword({
                     htmlFor="email"
                     className="text-sm leading-sm text-text-secondary-(700)"
                   >
-                    E-mail Adresse
+                    E-Mail Adresse
                   </Label>
                   <Input
                     id="email"
@@ -81,7 +81,7 @@ export default function ForgotPassword({
                 </div>
                 <Button
                   type="submit"
-                  variant="default"
+                  hierarchy="primary"
                   className="w-full mt-4"
                   disabled={isSubmitting || email === ''}
                 >

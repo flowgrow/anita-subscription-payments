@@ -36,7 +36,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
   return (
     <>
       <section className="flex flex-col items-center justify-center flex-1 self-stretch min-w-[480px] max-w-full">
-        <div className="px-8 flex flex-col items-center self-stretch h-[80vh] justify-center">
+        <div className="px-8 flex flex-col items-center self-stretch min-h-[80vh] justify-center">
           <div className="flex flex-col gap-8 items-stretch w-full max-w-[360px]">
             <div className="flex flex-col items-center w-auto relative pointer-events-none">
               <Wink className="w-16 h-16" />

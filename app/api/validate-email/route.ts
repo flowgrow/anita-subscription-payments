@@ -71,7 +71,7 @@ export async function GET(req: Request) {
       });
     }
 
-    // Check cache first
+    // Check zerobounce cache first
     const cacheKey = `${CACHE_KEY_PREFIX}${email}`;
     const cachedResult = await redis.get(cacheKey);
     console.log('***********CACHE***********');

@@ -47,7 +47,7 @@ export default function ProductPricingCard({
     (price) => price.interval === billingInterval
   );
   if (!price) return null;
-  const priceString = new Intl.NumberFormat('de-AT', {
+  const priceString = new Intl.NumberFormat('de-de', {
     style: 'currency',
     currency: price.currency!,
     minimumFractionDigits: 0
@@ -133,7 +133,7 @@ export default function ProductPricingCard({
         <Button
           className="w-full"
           type="button"
-          variant={disabled ? 'outline' : 'default'}
+          hierarchy={disabled ? 'secondary_gray' : 'primary'}
           disabled={disabled}
           onClick={() => onClickHandler(price)}
         >

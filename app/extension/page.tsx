@@ -65,7 +65,10 @@ export default async function Extension() {
               </div>
             </div>
             <div className="flex flex-row gap-0 items-center justify-center">
-              <Button variant="outline" className="pointer-events-none">
+              <Button
+                hierarchy="secondary_gray"
+                className="pointer-events-none"
+              >
                 <svg
                   width="28"
                   height="28"

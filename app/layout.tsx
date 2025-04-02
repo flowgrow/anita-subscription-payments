@@ -54,7 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={AnitaFont.variable}>
-      <body className="loading">
+      <body className="loading overflow-x-hidden">
         <Header />
         <main
           id="skip"

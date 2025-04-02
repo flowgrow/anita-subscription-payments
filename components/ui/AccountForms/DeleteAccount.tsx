@@ -30,6 +30,8 @@ import { ToastAction } from '../Toasts/toast';
 import { useCallback, useState } from 'react';
 import { Input } from '../input';
 import { cn } from '@/utils/cn';
+import { UserX, X } from 'lucide-react';
+import Rings from '@/components/icons/Rings';
 
 type Subscription = Tables<'subscriptions'>;
 type Price = Tables<'prices'>;
@@ -49,7 +51,7 @@ interface Props {
 
 export default function DeleteAccount({ subscription }: Props) {
   const router = useRouter();
-  const { toast, toasts } = useToast();
+  const { toast } = useToast();
   const [deleteInput, setDeleteInput] = useState('');
 
   const clickHandler = useCallback(
@@ -91,17 +93,18 @@ export default function DeleteAccount({ subscription }: Props) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Delete Account</CardTitle>
-        <CardDescription>Danger Zone!</CardDescription>
-      </CardHeader>
-      <CardContent className="text-balance">
-        By deleting your Account, we will cancel all your subscriptions and
-        remove all data associated with you from our database.
+      <CardContent className="p-6 flex flex-col gap-[6px]">
+        <span className="text-sm leading-sm font-medium text-text-secondary-(700)">
+          Du möchtest dein Konto löschen?
+        </span>
+        <p className="text-balance text-sm leading-sm font-normal text-text-tertiary-(600)">
+          Durch das Löschen deines Kontos werden alle deine Abonnements
+          gekündigt und alle mit dir verknüpften Daten aus unserer Datenbank
+          entfernt.
+        </p>
       </CardContent>
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0"></p>
           <AlertDialog
             onOpenChange={(open) => {
               if (!open) {
@@ -110,37 +113,33 @@ export default function DeleteAccount({ subscription }: Props) {
             }}
           >
             <AlertDialogTrigger asChild>
-              <Button variant="destructive">Delete Account</Button>
+              <Button hierarchy="destructive_secondary">Konto löschen</Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="overflow-hidden max-w-[400px]">
               <AlertDialogCancel asChild>
                 <Button
                   className={cn(
-                    buttonVariants({ variant: 'ghost' }),
-                    'absolute top-4 right-4 w-6 h-6 p-0 rounded-md border-none shadow-none text-inherit'
+                    buttonVariants({
+                      hierarchy: 'secondary_gray',
+                      size: '2xl',
+                      icon_only: 'yes'
+                    }),
+                    'absolute top-4 right-4 w-12 h-12 p-0 rounded-md border-none shadow-none text-inherit [&_svg]:size-6'
                   )}
                 >
-                  <span className="sr-only">Cancel</span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18 6L6 18M6 6L18 18"
-                      stroke="#98A2B3"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <span className="sr-only">Abbrechen</span>
+                  <X className="text-fg-quinary-(400)" />
                 </Button>
               </AlertDialogCancel>
               <AlertDialogHeader>
-                <AlertDialogTitle>Bist Du dir absolut sicher?</AlertDialogTitle>
-                <AlertDialogDescription>
+                <span className="flex mb-4 relative items-center justify-center gap-2 text-featured-icon-light-fg-error bg-bg-error-secondary rounded-full p-2 w-12 h-12">
+                  <UserX className="w-6 h-6" />
+                  <Rings className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </span>
+                <AlertDialogTitle className="text-lg leading-lg font-semibold text-text-primary-(900)">
+                  Bist du dir absolut sicher?
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-sm leading-sm font-normal text-text-tertiary-(600)">
                   Diese Aktion kann nicht rückgängig gemacht werden. Dein Konto
                   wird dauerhaft gelöscht und deine Daten werden von unseren
                   Servern entfernt.
@@ -149,22 +148,25 @@ export default function DeleteAccount({ subscription }: Props) {
 
               <form onSubmit={clickHandler} className="">
                 <Input
+                  autoFocus
                   value={deleteInput}
                   onChange={(e) => {
                     setDeleteInput(e.target.value);
                   }}
                 />
-                <p className="text-muted-foreground text-sm mt-1.5">
-                  Gib <span className="bg-muted p-1 rounded-md">LÖSCHEN</span>{' '}
-                  ein, um deine Absicht zu bestätigen.
+                <p className="text-sm leading-sm font-normal text-text-tertiary-(600) mt-1.5">
+                  Gib LÖSCHEN ein, um deine Absicht zu bestätigen.
                 </p>
                 <AlertDialogFooter className="mt-8">
-                  <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+                  <AlertDialogCancel className="w-full">
+                    Abbrechen
+                  </AlertDialogCancel>
                   <AlertDialogAction asChild>
                     <Button
                       type="submit"
                       disabled={deleteInput !== 'LÖSCHEN'}
-                      className={buttonVariants({ variant: 'destructive' })}
+                      hierarchy="destructive"
+                      className="w-full"
                       onClick={clickHandler}
                     >
                       Konto löschen

@@ -29,10 +29,10 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --valid-text: theme('colors.green.500');
-    --valid-icon: theme('colors.green.500');
-    --invalid-text: theme('colors.red.600');
-    --invalid-icon: theme('colors.red.600');
+    --valid-text: theme('colors.success-600');
+    --valid-icon: theme('colors.success-500');
+    --invalid-text: theme('colors.error-600');
+    --invalid-icon: theme('colors.error-500');
   }
 
   .dark {

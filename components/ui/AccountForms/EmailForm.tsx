@@ -38,36 +38,40 @@ export default function EmailForm({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Deine E-mail Adresse</CardTitle>
-        <CardDescription>
-          Bitte gib die E-mail Adresse ein, mit der du dich anmelden möchtest.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <form id="emailForm" onSubmit={(e) => handleSubmit(e)}>
-          <Input
-            type="text"
-            name="newEmail"
-            value={newMail}
-            onChange={(e) => setNewMail(e.target.value)}
-            placeholder="Deine E-mail Adresse"
-            maxLength={64}
-          />
-        </form>
-      </CardContent>
+      <form
+        className="p-6 flex flex-col gap-[6px]"
+        id="emailForm"
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <label
+          className="text-sm font-medium leading-sm text-text-secondary-(700)"
+          htmlFor="newEmail"
+        >
+          E-Mail Adresse
+        </label>
+        <Input
+          type="text"
+          name="newEmail"
+          id="newEmail"
+          value={newMail}
+          onChange={(e) => setNewMail(e.target.value)}
+          placeholder="Deine E-Mail Adresse"
+          maxLength={64}
+        />
+        <p className="m-0 text-sm leading-sm font-normal text-text-tertiary-(600)">
+          Wir werden dir eine E-Mail senden, um die Änderung zu verifizieren.
+        </p>
+      </form>
+
       <CardFooter>
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">
-            Wir senden dir eine E-mail, um die Änderung zu bestätigen.
-          </p>
           <Button
-            variant="outline"
+            hierarchy="secondary_gray"
             type="submit"
             form="emailForm"
             disabled={newMail === userEmail || isSubmitting}
           >
-            E-mail Adresse aktualisieren
+            E-Mail Adresse ändern
           </Button>
         </div>
       </CardFooter>

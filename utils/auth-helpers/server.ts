@@ -7,6 +7,7 @@ import { getURL, getErrorRedirect, getStatusRedirect } from 'utils/helpers';
 import { getAuthTypes } from 'utils/auth-helpers/settings';
 import { stripe } from '../stripe/config';
 import { deleteUser as deleteUserWithId } from '../supabase/admin';
+import getErrorMessageFromCode from '../supabase/errors';
 
 function isValidEmail(email: string) {
   var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -44,7 +45,7 @@ export async function signInWithEmail(formData: FormData) {
   if (!isValidEmail(email)) {
     redirectPath = getErrorRedirect(
       '/signin/email_signin',
-      'Ungültige E-mail Adresse.',
+      'Ungültige E-Mail Adresse.',
       'Bitte versuche es erneut.'
     );
   }
@@ -67,14 +68,14 @@ export async function signInWithEmail(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/email_signin',
       'Du konntest dich nicht einloggen.',
-      error.message
+      'Bitte wende dich an den Support.'
     );
   } else if (data) {
     cookieStore.set('preferredSignInView', 'email_signin', { path: '/' });
     redirectPath = getStatusRedirect(
       '/signin/email_signin',
       'Super!',
-      'Bitte überprüfe deine E-mail Adresse für einen Magic Link. Du kannst diese Seite jetzt schließen.',
+      'Bitte überprüfe deine E-Mail Adresse für einen Magic Link. Du kannst diese Seite jetzt schließen.',
       true
     );
   } else {
@@ -98,7 +99,7 @@ export async function requestPasswordUpdate(formData: FormData) {
   if (!isValidEmail(email)) {
     redirectPath = getErrorRedirect(
       '/signin/forgot_password',
-      'Ungültige E-mail Adresse.',
+      'Ungültige E-Mail Adresse.',
       'Bitte versuche es erneut.'
     );
   }
@@ -118,20 +119,20 @@ export async function requestPasswordUpdate(formData: FormData) {
         : 'Hmm... Etwas ist schief gelaufen.',
       error.status == 429
         ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
-        : error.message
+        : getErrorMessageFromCode((error as any).code)
     );
   } else if (data) {
     redirectPath = getStatusRedirect(
       '/signin/forgot_password',
       'Super!',
-      'Bitte überprüfe deine E-mail Adresse für einen Link zum Zurücksetzen deines Passworts. Du kannst diese Seite jetzt schließen.',
+      'Bitte überprüfe deine E-Mail Adresse für einen Link zum Zurücksetzen deines Passworts. Du kannst diese Seite jetzt schließen.',
       true
     );
   } else {
     redirectPath = getErrorRedirect(
       '/signin/forgot_password',
       'Hmm... Etwas ist schief gelaufen.',
-      'Das Passwort-Reset-E-mail konnte nicht gesendet werden.'
+      'Das Passwort-Reset-E-Mail konnte nicht gesendet werden.'
     );
   }
 
@@ -154,7 +155,9 @@ export async function signInWithPassword(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/password_signin',
       'Login fehlgeschlagen.',
-      error.message
+      error.status == 429
+        ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
+        : getErrorMessageFromCode((error as any).code)
     );
   } else if (data.user) {
     cookieStore.set('preferredSignInView', 'password_signin', { path: '/' });
@@ -184,7 +187,7 @@ export async function signUp(formData: FormData) {
   if (!isValidEmail(email)) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
-      'Ungültige E-mail Adresse.',
+      'Ungültige E-Mail Adresse.',
       'Bitte versuche es erneut.'
     );
   }
@@ -202,7 +205,9 @@ export async function signUp(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
       'Anmeldung fehlgeschlagen.',
-      error.message
+      error.status == 429
+        ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
+        : getErrorMessageFromCode((error as any).code)
     );
   } else if (data.session) {
     redirectPath = getStatusRedirect(
@@ -218,13 +223,13 @@ export async function signUp(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
       'Anmeldung fehlgeschlagen.',
-      'Es gibt bereits ein Konto mit dieser E-mail Adresse. Versuche dein Passwort zurückzusetzen.'
+      'Es gibt bereits ein Konto mit dieser E-Mail Adresse. Versuche dein Passwort zurückzusetzen.'
     );
   } else if (data.user) {
     redirectPath = getStatusRedirect(
       '/',
       'Super!',
-      'Bitte überprüfe deine E-mail Adresse für einen Bestätigungslink. Du kannst diese Seite jetzt schließen.'
+      'Bitte überprüfe deine E-Mail Adresse für einen Bestätigungslink. Du kannst diese Seite jetzt schließen.'
     );
   } else {
     redirectPath = getErrorRedirect(
@@ -260,13 +265,15 @@ export async function updatePassword(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/update_password',
       'Dein Passwort konnte nicht aktualisiert werden.',
-      error.message
+      error.status == 429
+        ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
+        : getErrorMessageFromCode((error as any).code)
     );
   } else if (data.user) {
     redirectPath = getStatusRedirect(
       '/account',
       'Super!',
-      'Dein Passwort wurde aktualisiert.'
+      'Dein Passwort wurde erfolgreich aktualisiert.'
     );
   } else {
     redirectPath = getErrorRedirect(
@@ -353,8 +360,8 @@ export async function updateEmail(formData: FormData) {
   if (!isValidEmail(newEmail)) {
     return getErrorRedirect(
       '/account',
-      'Deine E-mail Adresse konnte nicht aktualisiert werden.',
-      'Ungültige E-mail Adresse.'
+      'Deine E-Mail Adresse konnte nicht aktualisiert werden.',
+      'Ungültige E-Mail Adresse.'
     );
   }
 
@@ -364,7 +371,7 @@ export async function updateEmail(formData: FormData) {
     getStatusRedirect(
       '/account',
       'Super!',
-      `Deine E-mail Adresse wurde aktualisiert.`
+      `Deine E-Mail Adresse wurde erfolgreich aktualisiert.`
     )
   );
 
@@ -378,14 +385,16 @@ export async function updateEmail(formData: FormData) {
   if (error) {
     return getErrorRedirect(
       '/account',
-      'Deine E-mail Adresse konnte nicht aktualisiert werden.',
-      error.message
+      'Deine E-Mail Adresse konnte nicht aktualisiert werden.',
+      error.status == 429
+        ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
+        : getErrorMessageFromCode((error as any).code)
     );
   } else {
     return getStatusRedirect(
       '/account',
       'Bestätigungs-emails gesendet.',
-      `Du musst die Aktualisierung bestätigen, indem du die Links in beiden E-mail Adressen klickst.`
+      `Du musst die Aktualisierung bestätigen, indem du die Links in beiden E-Mail Adressen klickst.`
     );
   }
 }
@@ -403,13 +412,15 @@ export async function updateName(formData: FormData) {
     return getErrorRedirect(
       '/account',
       'Dein Name konnte nicht aktualisiert werden.',
-      error.message
+      error.status == 429
+        ? 'Bitte warte ein paar Sekunden und versuche es erneut.'
+        : getErrorMessageFromCode((error as any).code)
     );
   } else if (data.user) {
     return getStatusRedirect(
       '/account',
       'Super!',
-      'Dein Name wurde aktualisiert.'
+      'Dein Name wurde erfolgreich aktualisiert.'
     );
   } else {
     return getErrorRedirect(

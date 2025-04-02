@@ -36,7 +36,7 @@ export default function PasswordSignIn({
 
   return (
     <section className="flex flex-col items-center justify-center flex-1 self-stretch min-w-[480px] max-w-full">
-      <div className="px-8 flex flex-col items-center self-stretch h-[80vh] justify-center">
+      <div className="px-8 flex flex-col items-center self-stretch min-h-[80vh] justify-center">
         <div className="flex flex-col gap-8 items-stretch w-full max-w-[360px]">
           <div className="flex flex-col items-center w-auto relative pointer-events-none">
             <Wink className="w-16 h-16" />
@@ -55,7 +55,7 @@ export default function PasswordSignIn({
                 htmlFor="email"
                 className="text-sm leading-sm text-text-secondary-(700)"
               >
-                E-mail Adresse
+                E-Mail Adresse
               </Label>
               <Input
                 id="email"
@@ -88,7 +88,7 @@ export default function PasswordSignIn({
             </div>
             <Button
               type="submit"
-              variant="default"
+              hierarchy="primary"
               className="w-full mt-4"
               disabled={isSubmitting}
             >

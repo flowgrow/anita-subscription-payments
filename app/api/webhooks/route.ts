@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     }
   } else {
     return new Response(`Unsupported event type: ${event.type}`, {
-      status: 400
+      status: 200
     });
   }
   return new Response(JSON.stringify({ received: true }));

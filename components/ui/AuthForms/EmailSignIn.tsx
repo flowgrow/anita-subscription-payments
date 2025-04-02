@@ -37,7 +37,7 @@ export default function EmailSignIn({
       >
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <label htmlFor="email">E-mail Adresse</label>
+            <label htmlFor="email">E-Mail Adresse</label>
             <input
               id="email"
               placeholder="name@example.com"
@@ -50,7 +50,7 @@ export default function EmailSignIn({
             />
           </div>
           <Button
-            variant="secondary"
+            hierarchy="secondary_gray"
             type="submit"
             className="mt-1"
             disabled={disableButton || isSubmitting}

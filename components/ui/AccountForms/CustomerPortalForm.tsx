@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { Tables } from '@/types_db';
+import { Json, Tables } from '@/types_db';
 
 type Subscription = Tables<'subscriptions'>;
 type Price = Tables<'prices'>;
@@ -31,6 +31,14 @@ interface Props {
   subscription: SubscriptionWithPriceAndProduct | null;
 }
 
+const intervalTranslation = {
+  day: 'pro Tag',
+  week: 'pro Woche',
+  month: 'im Monat',
+  year: 'im Jahr',
+  '': ''
+};
+
 export default function CustomerPortalForm({ subscription }: Props) {
   const router = useRouter();
   const currentPath = usePathname();
@@ -38,7 +46,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
 
   const subscriptionPrice =
     subscription &&
-    new Intl.NumberFormat('en-US', {
+    new Intl.NumberFormat('de-de', {
       style: 'currency',
       currency: subscription?.prices?.currency!,
       minimumFractionDigits: 0
@@ -51,36 +59,62 @@ export default function CustomerPortalForm({ subscription }: Props) {
     return router.push(redirectUrl);
   };
 
+  const metadata = subscription?.prices?.products?.metadata;
+  let description = '';
+  if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
+    description = (metadata as { description?: Json }).description as string;
+  }
+
   return (
     <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Dein Abo</CardTitle>
-          <CardDescription>
-            {subscription
-              ? `Du bist derzeit auf dem ${subscription?.prices?.products?.name} Plan.`
-              : 'Du hast derzeit kein Abo.'}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          {subscription ? (
-            `${subscriptionPrice}/${subscription?.prices?.interval}`
-          ) : (
-            <Link href="/">Wähle dein Abo</Link>
-          )}
-        </CardContent>
+      <Card className="w-full ">
+        <div className="flex flex-row gap-4 p-6">
+          <div className="flex flex-col gap-1">
+            <CardTitle className="text-md font-medium">
+              Abonnement:{' '}
+              {subscription ? (
+                <span className="text-brand-600">
+                  {subscription?.prices?.products?.name}
+                </span>
+              ) : (
+                <span className="text-text-quarterary-(500)">Kein Abo</span>
+              )}
+            </CardTitle>
+
+            <p className="text-sm font-regular leading-sm text-text-tertiary-(600)">
+              {description}
+            </p>
+          </div>
+          <div className="align-self-stretch w-[1px] bg-border-secondary" />
+          <div className="flex flex-col min-w-[100px] justify-center items-center">
+            {subscription ? (
+              <>
+                <div className="text-d-sm font-semibold leading-d-sm text-text-brand-primary-(900)">
+                  {subscriptionPrice}
+                </div>
+                <span className="text-sm font-regular leading-sm text-text-brand-secondary-(700)">
+                  {
+                    intervalTranslation[
+                      subscription?.prices
+                        ?.interval as keyof typeof intervalTranslation
+                    ]
+                  }
+                </span>
+              </>
+            ) : (
+              <Link href="/">Wähle dein Abo</Link>
+            )}
+          </div>
+        </div>
         {subscription && (
           <CardFooter>
-            <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
-              <p className="pb-4 sm:pb-0">Verwalte dein Abo auf Stripe.</p>
-              <Button
-                variant="outline"
-                disabled={isSubmitting}
-                onClick={handleStripePortalRequest}
-              >
-                Stripe Kundenportal öffnen
-              </Button>
-            </div>
+            <Button
+              hierarchy="secondary_gray"
+              disabled={isSubmitting}
+              onClick={handleStripePortalRequest}
+            >
+              Abo verwalten
+            </Button>
           </CardFooter>
         )}
       </Card>

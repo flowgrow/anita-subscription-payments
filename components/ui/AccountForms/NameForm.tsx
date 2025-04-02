@@ -55,7 +55,7 @@ export default function NameForm({ userName }: { userName: string }) {
         <div className="flex flex-col items-start w-full justify-between sm:flex-row sm:items-center">
           <p></p>
           <Button
-            variant="outline"
+            hierarchy="secondary_gray"
             type="submit"
             form="nameForm"
             disabled={isSubmitting}
