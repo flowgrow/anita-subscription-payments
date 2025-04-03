@@ -67,7 +67,6 @@ export default function PasswordSignIn({
                 autoCapitalize="none"
                 autoComplete="email"
                 autoCorrect="off"
-                className="w-full py-[10px] px-[14px] rounded-md text-md leading-md font-normal text-text-primary-(900) bg-bg-primary shadow-sm"
               />
             </div>
             <div className="grid gap-2">
@@ -75,7 +74,7 @@ export default function PasswordSignIn({
                 htmlFor="password"
                 className="text-sm leading-sm text-text-secondary-(700)"
               >
-                Password
+                Passwort
               </Label>
               <Input
                 id="password"
@@ -83,7 +82,6 @@ export default function PasswordSignIn({
                 type="password"
                 name="password"
                 autoComplete="current-password"
-                className="w-full py-[10px] px-[14px] rounded-md text-md leading-md font-normal text-text-primary-(900) bg-bg-primary shadow-sm"
               />
             </div>
             <Button

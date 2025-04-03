@@ -69,17 +69,21 @@ export default function DeleteAccount({ subscription }: Props) {
         await deleteUser();
 
         router.push(
-          getStatusRedirect('/', 'Success!', 'We have deleted your account.')
+          getStatusRedirect(
+            '/',
+            'Super!',
+            'Dein Konto wurde erfolgreich gelöscht.'
+          )
         );
       } catch (e) {
         if (e instanceof Error) {
           toast({
             variant: 'destructive',
-            title: 'Uh oh! Something went wrong.',
+            title: 'Etwas ist schief gelaufen.',
             description: e.message,
             action: (
-              <ToastAction onClick={clickHandler} altText="Try again">
-                Try again
+              <ToastAction onClick={clickHandler} altText="Erneut versuchen">
+                Erneut versuchen
               </ToastAction>
             )
           });
@@ -120,11 +124,11 @@ export default function DeleteAccount({ subscription }: Props) {
                 <Button
                   className={cn(
                     buttonVariants({
-                      hierarchy: 'secondary_gray',
-                      size: '2xl',
+                      hierarchy: 'tertiary_gray',
+                      size: 'xl',
                       icon_only: 'yes'
                     }),
-                    'absolute top-4 right-4 w-12 h-12 p-0 rounded-md border-none shadow-none text-inherit [&_svg]:size-6'
+                    'absolute top-4 right-4 w-12 h-12 p-0 rounded-md border-none shadow-none text-inherit'
                   )}
                 >
                   <span className="sr-only">Abbrechen</span>

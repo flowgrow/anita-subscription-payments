@@ -111,7 +111,7 @@ export async function requestPasswordUpdate(formData: FormData) {
   });
 
   if (error) {
-    console.error(error);
+    console.error({ error });
     redirectPath = getErrorRedirect(
       '/signin/forgot_password',
       error.status == 429
@@ -152,6 +152,7 @@ export async function signInWithPassword(formData: FormData) {
   });
 
   if (error) {
+    console.error({ error });
     redirectPath = getErrorRedirect(
       '/signin/password_signin',
       'Login fehlgeschlagen.',
@@ -393,8 +394,8 @@ export async function updateEmail(formData: FormData) {
   } else {
     return getStatusRedirect(
       '/account',
-      'Bestätigungs-emails gesendet.',
-      `Du musst die Aktualisierung bestätigen, indem du die Links in beiden E-Mail Adressen klickst.`
+      'Bestätigungs-E-Mail gesendet.',
+      `Du musst die Aktualisierung bestätigen, indem du den Link in der Bestätigungs-E-Mail anklickst.`
     );
   }
 }

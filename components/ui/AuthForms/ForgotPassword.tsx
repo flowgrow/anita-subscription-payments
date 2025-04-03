@@ -76,7 +76,6 @@ export default function ForgotPassword({
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    className="w-full py-[10px] px-[14px] rounded-md text-md leading-md font-normal text-text-primary-(900) bg-bg-primary shadow-sm"
                   />
                 </div>
                 <Button

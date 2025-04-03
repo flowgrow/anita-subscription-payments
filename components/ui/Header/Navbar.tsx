@@ -28,7 +28,12 @@ export default function Navbar({ user }: NavbarProps) {
         </Link>
         <div className="md:flex hidden flex-row gap-2 items-stretch justify-end shrink-0 relative">
           <Link href="/extension" tabIndex={-1}>
-            <Button hierarchy="tertiary_color" size="sm" icon_only="no">
+            <Button
+              hierarchy="tertiary_color"
+              size="sm"
+              icon_only="no"
+              className="font-semibold"
+            >
               <Puzzle />
               Browser-Extension
             </Button>

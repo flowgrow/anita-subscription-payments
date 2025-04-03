@@ -103,7 +103,7 @@ export default function Pricing({ user, products, subscription }: Props) {
     <section>
       <div className="px-8 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
         <div className="flex flex-col align-center">
-          <h1 className="text-4xl font-extrabold  text-center sm:text-6xl">
+          <h1 className="text-4xl font-semibold  text-center sm:text-6xl">
             Abos für ein
             <br />
             barrierefreies Internet.

@@ -864,9 +864,9 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out'
       },
       boxShadow: {
-        "ring-brand": '0px 0px 0px 2px rgba(165, 110, 255, 0.6);',
-        "ring-brand-shadow-xs": '0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 2px rgba(165, 110, 255, 0.6)',
-        "ring-brand-shadow-sm": '0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06), 0px 0px 0px 2px rgba(165, 110, 255, 0.6)',
+        "ring-brand": '0px 0px 0px 2px #DBC5FF;',
+        "ring-brand-shadow-xs": '0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 2px #DBC5FF',
+        "ring-brand-shadow-sm": '0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06), 0px 0px 0px 2px #DBC5FF',
         "ring-gray": '0px 0px 0px 2px rgba(152, 162, 179, 0.14)',
         "ring-gray-shadow-xs": '0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 2px rgba(152, 162, 179, 0.14)',
         "ring-gray-shadow-sm": '0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06), 0px 0px 0px 2px rgba(152, 162, 179, 0.14)',

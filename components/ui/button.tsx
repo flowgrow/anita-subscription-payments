@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:pointer-events-none [&_svg]:size-5 [&_svg]:stroke-[1.67] [&_svg]:shrink-0 focus-visible:outline-none',
+  'inline-flex items-center justify-center whitespace-nowrap font-semibold rounded-lg transition-colors disabled:pointer-events-none [&_svg]:size-5 [&_svg]:stroke-[1.67] [&_svg]:shrink-0 focus-visible:outline-none',
   {
     variants: {
       hierarchy: {
